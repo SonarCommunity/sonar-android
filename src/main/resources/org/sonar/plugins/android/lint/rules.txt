@@ -1584,7 +1584,7 @@ Priority: 5 / 10
 Severity: Warning
 Category: Usability:Typography
 
-The "n dash" (–, &#8211;) and the "m dash" (—, &#8212;) characters are used
+The "n dash" (&#8211;) and the "m dash" (&#8212;) characters are used
 for ranges (n dash) and breaks (m dash). Using these instead of plain hyphens
 can make text easier to read and your application will look more polished.
 
@@ -1600,7 +1600,7 @@ Severity: Warning
 Category: Usability:Typography
 
 You can replace the string "..." with a dedicated ellipsis character, ellipsis
-character (…, &#8230;). This can help make the text more readable.
+character (&#8230;). This can help make the text more readable.
 
 More information: http://en.wikipedia.org/wiki/Ellipsis
 
@@ -1614,7 +1614,7 @@ Severity: Warning
 Category: Usability:Typography
 
 You can replace certain strings, such as 1/2, and 1/4, with dedicated
-characters for these, such as ½ (&#189;) and  BC (&#188;). This can help make
+characters for these, such as (&#189;) and (&#188;). This can help make
 the text more readable.
 
 More information: http://en.wikipedia.org/wiki/Number_Forms
@@ -1889,8 +1889,8 @@ Severity: Warning
 Category: Usability
 
 From the action bar documentation:
-"It's important that you always define android:title for each menu item — even
-if you don't declare that the title appear with the action item — for three
+"It's important that you always define android:title for each menu item - even
+if you don't declare that the title appear with the action item - for three
 reasons:
 
 * If there's not enough room in the action bar for the action item, the menu
