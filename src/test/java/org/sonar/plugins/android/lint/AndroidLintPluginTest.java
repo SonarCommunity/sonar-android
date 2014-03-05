@@ -27,6 +27,6 @@ public class AndroidLintPluginTest {
 
   @Test
   public void testGetExtensions() {
-    assertThat(new AndroidLintPlugin().getExtensions().size()).isEqualTo(4);
+    assertThat(new AndroidLintPlugin().getExtensions().size()).isEqualTo(5);
   }
 }

@@ -30,3 +30,9 @@ II - Running an analyse:
  - Add this property to your sonar-project.properties
   -> sonar.profile=Android Lint
 
+III - Configuring analysis:
+---------------------------
+1. If your Android project (where AndroidManifest.xml is located) is not in the base directory:
+ - Add the property `sonar.androidLint.projectPath="path_to_your_android_project_dir"` to your _sonar-project.properties_.
+
+

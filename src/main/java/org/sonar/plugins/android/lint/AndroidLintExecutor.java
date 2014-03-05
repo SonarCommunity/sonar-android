@@ -42,6 +42,7 @@ import org.slf4j.LoggerFactory;
 import org.sonar.api.BatchExtension;
 import org.sonar.api.batch.ProjectClasspath;
 import org.sonar.api.batch.SensorContext;
+import org.sonar.api.config.Settings;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.RuleFinder;
@@ -68,23 +69,31 @@ public class AndroidLintExecutor extends LintClient implements BatchExtension {
   private RulesProfile rulesProfile;
   private ProjectClasspath projectClasspath;
   private PathResolver resolver;
+  private Settings settings;
 
-  public AndroidLintExecutor(RuleFinder ruleFinder, ModuleFileSystem fs, RulesProfile rulesProfile, ProjectClasspath projectClasspath, PathResolver resolver) {
+  public AndroidLintExecutor(RuleFinder ruleFinder, ModuleFileSystem fs, RulesProfile rulesProfile, ProjectClasspath projectClasspath, PathResolver resolver, Settings settings) {
     this.ruleFinder = ruleFinder;
     this.fs = fs;
     this.rulesProfile = rulesProfile;
     this.projectClasspath = projectClasspath;
     this.resolver = resolver;
+    this.settings = settings;
   }
 
   public void execute(SensorContext sensorContext, org.sonar.api.resources.Project project) {
     this.sensorContext = sensorContext;
     this.project = project;
+    String projectFullPath = fs.baseDir().getPath();
+    String projectRelPath = settings.getString(AndroidLintConstants.PROJECT_PATH_PROPERTY);
+    if (projectRelPath != null) {
+      projectFullPath += "/" + projectRelPath;
+    }
+    File projectDir = new File(projectFullPath);
     IssueRegistry registry = new BuiltinIssueRegistry();
     LintDriver driver = new LintDriver(registry, this);
 
     TimeProfiler profiler = new TimeProfiler().start("Execute Android Lint " + AndroidLintVersion.getVersion());
-    driver.analyze(new LintRequest(this, Arrays.asList(fs.baseDir())));
+    driver.analyze(new LintRequest(this, Arrays.asList(projectDir)));
     profiler.stop();
   }
 

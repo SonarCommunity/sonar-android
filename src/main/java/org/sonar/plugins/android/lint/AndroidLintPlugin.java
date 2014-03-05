@@ -20,15 +20,27 @@
 package org.sonar.plugins.android.lint;
 
 import com.google.common.collect.ImmutableList;
+import org.sonar.api.CoreProperties;
 import org.sonar.api.SonarPlugin;
+import org.sonar.api.config.PropertyDefinition;
+import org.sonar.api.resources.Qualifiers;
 
 import java.util.List;
 
 public class AndroidLintPlugin extends SonarPlugin {
 
+  private static final String SETTINGS_CATEGORY_NAME = "Android Lint";
+
   @Override
   public List<?> getExtensions() {
     return ImmutableList.of(
+        PropertyDefinition.builder(AndroidLintConstants.PROJECT_PATH_PROPERTY)
+            .category(SETTINGS_CATEGORY_NAME)
+            .subCategory(SETTINGS_CATEGORY_NAME)
+            .name("Android project path")
+            .description("Path (relative to the base path) where the Android project resides (i.e. where the AndroidManifest.xml is located).")
+            .onlyOnQualifiers(Qualifiers.PROJECT)
+            .build(),
         AndroidLintSensor.class,
         AndroidLintRuleRepository.class,
         AndroidLintSonarWay.class,

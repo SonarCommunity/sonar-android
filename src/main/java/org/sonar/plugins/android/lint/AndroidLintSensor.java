@@ -22,6 +22,7 @@ package org.sonar.plugins.android.lint;
 import com.android.SdkConstants;
 import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
+import org.sonar.api.config.Settings;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.resources.Project;
 import org.sonar.api.scan.filesystem.FileQuery;
@@ -32,15 +33,15 @@ import java.io.File;
 public class AndroidLintSensor implements Sensor {
 
   private RulesProfile profile;
-
   private AndroidLintExecutor executor;
-
   private ModuleFileSystem fs;
+  private Settings settings;
 
-  public AndroidLintSensor(RulesProfile profile, AndroidLintExecutor executor, ModuleFileSystem fs) {
+  public AndroidLintSensor(RulesProfile profile, AndroidLintExecutor executor, ModuleFileSystem fs, Settings settings) {
     this.profile = profile;
     this.executor = executor;
     this.fs = fs;
+    this.settings = settings;
   }
 
   @Override
@@ -50,9 +51,14 @@ public class AndroidLintSensor implements Sensor {
 
   @Override
   public boolean shouldExecuteOnProject(Project project) {
+    String projectFullPath = fs.baseDir().getPath();
+    String projectRelPath = settings.getString(AndroidLintConstants.PROJECT_PATH_PROPERTY);
+    if (projectRelPath != null) {
+      projectFullPath += "/" + projectRelPath;
+    }
     return !fs.files(FileQuery.onSource().onLanguage("java")).isEmpty()
         && !profile.getActiveRulesByRepository(AndroidLintConstants.REPOSITORY_KEY).isEmpty()
-        && new File(fs.baseDir(), SdkConstants.ANDROID_MANIFEST_XML).exists();
+        && new File(projectFullPath, SdkConstants.ANDROID_MANIFEST_XML).exists();
   }
 
   @Override

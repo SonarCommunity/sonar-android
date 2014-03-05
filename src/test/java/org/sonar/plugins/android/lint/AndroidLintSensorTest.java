@@ -28,6 +28,7 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.mockito.Matchers;
 import org.sonar.api.batch.SensorContext;
+import org.sonar.api.config.Settings;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.resources.Project;
 import org.sonar.api.rules.ActiveRule;
@@ -50,6 +51,7 @@ public class AndroidLintSensorTest {
   private AndroidLintSensor sensor;
   private AndroidLintExecutor executor;
   private RulesProfile rulesProfile;
+  private Settings settings;
 
   private ModuleFileSystem fs;
 
@@ -58,7 +60,8 @@ public class AndroidLintSensorTest {
     executor = mock(AndroidLintExecutor.class);
     rulesProfile = mock(RulesProfile.class);
     fs = mock(ModuleFileSystem.class);
-    sensor = new AndroidLintSensor(rulesProfile, executor, fs);
+    settings = new Settings();
+    sensor = new AndroidLintSensor(rulesProfile, executor, fs, settings);
   }
 
   @Test
@@ -114,6 +117,31 @@ public class AndroidLintSensorTest {
 
     when(rulesProfile.getActiveRulesByRepository(AndroidLintConstants.REPOSITORY_KEY)).thenReturn(Arrays.asList(new ActiveRule()));
     assertThat(sensor.shouldExecuteOnProject(project)).isTrue();
+  }
+
+  @Test
+  public void shouldOnlyRunOnAndroidModulesProjectPathSet() throws Exception {
+    String projectPath = "AndroidProject";
+
+    Project project = mock(Project.class);
+    when(fs.files(Matchers.<FileQuery>any())).thenReturn(Lists.newArrayList(new File("MyClass.java")));
+    when(rulesProfile.getActiveRulesByRepository(AndroidLintConstants.REPOSITORY_KEY)).thenReturn(Arrays.asList(new ActiveRule()));
+
+    Settings settings = new Settings();
+    settings.setProperty("sonar.androidLint.projectPath", projectPath);
+
+    AndroidLintSensor sensor = new AndroidLintSensor(rulesProfile, executor, fs, settings);
+
+    File basedir = temp.newFolder();
+    when(fs.baseDir()).thenReturn(basedir);
+
+    File projectDir = new File(basedir, projectPath);
+    projectDir.mkdir();
+
+    assertThat(sensor.shouldExecuteOnProject(project)).isEqualTo(false);
+
+    new File(projectDir, SdkConstants.ANDROID_MANIFEST_XML).createNewFile();
+    assertThat(sensor.shouldExecuteOnProject(project)).isEqualTo(true);
   }
 
 }
