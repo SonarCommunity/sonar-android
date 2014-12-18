@@ -33,6 +33,8 @@ import org.sonar.plugins.android.AndroidPlugin;
 import org.sonar.plugins.java.api.JavaResourceLocator;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AndroidEmmaSensor implements Sensor, CoverageExtension {
 
@@ -40,7 +42,7 @@ public class AndroidEmmaSensor implements Sensor, CoverageExtension {
   private final JavaResourceLocator javaResourceLocator;
   private final Settings settings;
   private final FileSystem fileSystem;
-  private String emmaReportDirectory;
+  private String emmaReportDirectories;
 
   public AndroidEmmaSensor(Settings settings, JavaResourceLocator javaResourceLocator, FileSystem fileSystem) {
     this.javaResourceLocator = javaResourceLocator;
@@ -50,25 +52,39 @@ public class AndroidEmmaSensor implements Sensor, CoverageExtension {
 
   @Override
   public boolean shouldExecuteOnProject(Project project) {
-    emmaReportDirectory = settings.getString(AndroidPlugin.EMMA_REPORT_DIR_PROPERTY);
-
-    return !StringUtils.isEmpty(emmaReportDirectory) && fileSystem.hasFiles(fileSystem.predicates().hasLanguage("java"));
+    emmaReportDirectories = settings.getString(AndroidPlugin.EMMA_REPORT_DIR_PROPERTY);
+    return !StringUtils.isEmpty(emmaReportDirectories) && fileSystem.hasFiles(fileSystem.predicates().hasLanguage("java"));
   }
 
   @Override
   public void analyse(Project project, SensorContext context) {
-    File reportsPath = project.getFileSystem().resolvePath(emmaReportDirectory);
-    if (reportsPath == null) {
-      LOGGER.warn("Directory {} not found on file system", emmaReportDirectory);
-      return;
-    }
-    if (!reportsPath.exists() || !reportsPath.isDirectory()) {
-      LOGGER.warn("Emma reports not found in {}", reportsPath);
-      return;
+    List<File> reportPaths = new ArrayList<File>();
+    for (String reportPath : getListFromValue(emmaReportDirectories)) {
+      File reportsPath = project.getFileSystem().resolvePath(reportPath);
+      if (reportsPath == null) {
+        LOGGER.warn("Directory {} not found on file system", emmaReportDirectories);
+        return;
+      }
+      if (!reportsPath.exists() || !reportsPath.isDirectory()) {
+        LOGGER.warn("Emma reports not found in {}", reportsPath);
+        return;
+      }
+
+      LOGGER.info("Parse reports: " + reportsPath);
+      reportPaths.add(reportsPath);
     }
 
-    LOGGER.info("Parse reports: " + reportsPath);
-    new AndroidEmmaProcessor(reportsPath, javaResourceLocator, context).process();
+    new AndroidEmmaProcessor(reportPaths, javaResourceLocator, context).process();
+  }
+
+  /**
+   * Transforms a comma-separated list String property in to a array of trimmed strings.
+   *
+   * This works even if they are separated by whitespace characters (space char, EOL, ...)
+   *
+   */
+  static String[] getListFromValue(String value) {
+    return StringUtils.stripAll(StringUtils.split(value, ','));
   }
 
   @Override

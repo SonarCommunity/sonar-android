@@ -25,6 +25,7 @@ import org.sonar.api.measures.CoreMetrics;
 import org.sonar.plugins.java.api.JavaResourceLocator;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
@@ -43,7 +44,9 @@ public class AndroidEmmaProcessorTest {
     JavaResourceLocator jrl = mock(JavaResourceLocator.class);
     when(jrl.findResourceByClassName("org.example.ExampleActivity")).thenReturn(exampleActivity);
     when(jrl.findResourceByClassName("org.example.BuildConfig")).thenReturn(buildConfig);
-    new AndroidEmmaProcessor(dir, jrl, context).process();
+    ArrayList<File> dirs = new ArrayList<File>();
+    dirs.add(dir);
+    new AndroidEmmaProcessor(dirs, jrl, context).process();
 
     verify(context).saveMeasure(eq(exampleActivity),
         eq(CoreMetrics.LINES_TO_COVER),
@@ -66,7 +69,9 @@ public class AndroidEmmaProcessorTest {
     JavaResourceLocator jrl = mock(JavaResourceLocator.class);
     org.sonar.api.resources.File file = mock(org.sonar.api.resources.File.class);
     when(jrl.findResourceByClassName("org.example.BuildConfig")).thenReturn(file);
-    new AndroidEmmaProcessor(dir, jrl, context).process();
+    ArrayList<File> dirs = new ArrayList<File>();
+    dirs.add(dir);
+    new AndroidEmmaProcessor(dirs, jrl, context).process();
     verify(context).saveMeasure(eq(file),
         eq(CoreMetrics.LINES_TO_COVER),
         eq(1d));

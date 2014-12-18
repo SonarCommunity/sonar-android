@@ -48,6 +48,7 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Properties;
 
 public class AndroidEmmaProcessor {
@@ -61,10 +62,29 @@ public class AndroidEmmaProcessor {
   private final IReportDataModel model;
   private final JavaResourceLocator javaResourceLocator;
 
-  public AndroidEmmaProcessor(File buildDir, JavaResourceLocator javaResourceLocator, SensorContext context) {
+  public AndroidEmmaProcessor(List<File> buildDirs, JavaResourceLocator javaResourceLocator, SensorContext context) {
     try {
-      ICoverageData coverageData = mergeCoverageData(buildDir);
-      IMetaData metaData = mergeMetadata(buildDir);
+      ICoverageData coverageData = null;
+      IMetaData metaData = null;
+
+      for (File buildDir : buildDirs) {
+        ICoverageData newCoverageData = mergeCoverageData(buildDir);
+        IMetaData newMetaData = mergeMetadata(buildDir);
+
+        if(coverageData!=null) {
+          coverageData.merge(newCoverageData);
+        } else {
+          coverageData = newCoverageData;
+        }
+
+        if(metaData!=null) {
+          metaData.merge(newMetaData);
+        } else {
+          metaData = newMetaData;
+        }
+      }
+
+
       this.model = IReportDataModel.Factory.create(metaData, coverageData);
       this.context = context;
       this.javaResourceLocator = javaResourceLocator;

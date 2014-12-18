@@ -84,6 +84,13 @@ public class AndroidEmmaSensorTest {
   }
 
   @Test
+  public void should_execute_if_report_directory_has_multiple_dirs() {
+    settings.setProperty(AndroidPlugin.EMMA_REPORT_DIR_PROPERTY, "emma,emma2");
+    fs.add(new DefaultInputFile("HelloWorld.java").setLanguage("java"));
+    assertThat(new AndroidEmmaSensor(settings, jrl, fs).shouldExecuteOnProject(project)).isTrue();
+  }
+
+  @Test
   public void should_do_nothing_if_no_report() {
     DefaultInputFile dif = new DefaultInputFile("HelloWorld");
     dif.setAbsolutePath(this.getClass().getResource("/HelloWorld").getFile());
