@@ -27,51 +27,49 @@ import org.sonar.plugins.java.api.JavaResourceLocator;
 import java.io.File;
 
 import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class AndroidEmmaProcessorTest {
 
-  @Test
-  public void process_should_read_emma_files() throws Exception {
-    File dir = new File(getClass().getResource("/emma").getFile());
+    @Test
+    public void process_should_read_emma_files() throws Exception {
+        File dir = new File(getClass().getResource("/emma").getFile());
 
-    SensorContext context = mock(SensorContext.class);
-    org.sonar.api.resources.File exampleActivity = mock(org.sonar.api.resources.File.class);
-    org.sonar.api.resources.File buildConfig = mock(org.sonar.api.resources.File.class);
-    JavaResourceLocator jrl = mock(JavaResourceLocator.class);
-    when(jrl.findResourceByClassName("org.example.ExampleActivity")).thenReturn(exampleActivity);
-    when(jrl.findResourceByClassName("org.example.BuildConfig")).thenReturn(buildConfig);
-    new AndroidEmmaProcessor(dir, jrl, context).process();
+        SensorContext context = mock(SensorContext.class);
+        org.sonar.api.resources.File exampleActivity = mock(org.sonar.api.resources.File.class);
+        org.sonar.api.resources.File buildConfig = mock(org.sonar.api.resources.File.class);
+        JavaResourceLocator jrl = mock(JavaResourceLocator.class);
+        when(jrl.findResourceByClassName("org.example.ExampleActivity")).thenReturn(exampleActivity);
+        when(jrl.findResourceByClassName("org.example.BuildConfig")).thenReturn(buildConfig);
+        new AndroidEmmaProcessor(dir, jrl, context).process();
 
-    verify(context).saveMeasure(eq(exampleActivity),
-        eq(CoreMetrics.LINES_TO_COVER),
-        eq(7d));
-    verify(context).saveMeasure(eq(exampleActivity),
-        eq(CoreMetrics.UNCOVERED_LINES),
-        eq(1d));
-    verify(context).saveMeasure(eq(buildConfig),
-        eq(CoreMetrics.LINES_TO_COVER),
-        eq(1d));
-    verify(context).saveMeasure(eq(buildConfig),
-        eq(CoreMetrics.UNCOVERED_LINES),
-        eq(1d));
-  }
+        verify(context).saveMeasure(eq(exampleActivity),
+                eq(CoreMetrics.LINES_TO_COVER),
+                eq(7d));
+        verify(context).saveMeasure(eq(exampleActivity),
+                eq(CoreMetrics.UNCOVERED_LINES),
+                eq(1d));
+        verify(context).saveMeasure(eq(buildConfig),
+                eq(CoreMetrics.LINES_TO_COVER),
+                eq(1d));
+        verify(context).saveMeasure(eq(buildConfig),
+                eq(CoreMetrics.UNCOVERED_LINES),
+                eq(1d));
+    }
 
-  @Test
-  public void process_should_log_files_in_error() throws Exception {
-    File dir = new File(getClass().getResource("/emma").getFile());
-    SensorContext context = mock(SensorContext.class);
-    JavaResourceLocator jrl = mock(JavaResourceLocator.class);
-    org.sonar.api.resources.File file = mock(org.sonar.api.resources.File.class);
-    when(jrl.findResourceByClassName("org.example.BuildConfig")).thenReturn(file);
-    new AndroidEmmaProcessor(dir, jrl, context).process();
-    verify(context).saveMeasure(eq(file),
-        eq(CoreMetrics.LINES_TO_COVER),
-        eq(1d));
-    verify(context).saveMeasure(eq(file),
-        eq(CoreMetrics.UNCOVERED_LINES),
-        eq(1d));
-  }
+    @Test
+    public void process_should_log_files_in_error() throws Exception {
+        File dir = new File(getClass().getResource("/emma").getFile());
+        SensorContext context = mock(SensorContext.class);
+        JavaResourceLocator jrl = mock(JavaResourceLocator.class);
+        org.sonar.api.resources.File file = mock(org.sonar.api.resources.File.class);
+        when(jrl.findResourceByClassName("org.example.BuildConfig")).thenReturn(file);
+        new AndroidEmmaProcessor(dir, jrl, context).process();
+        verify(context).saveMeasure(eq(file),
+                eq(CoreMetrics.LINES_TO_COVER),
+                eq(1d));
+        verify(context).saveMeasure(eq(file),
+                eq(CoreMetrics.UNCOVERED_LINES),
+                eq(1d));
+    }
 }

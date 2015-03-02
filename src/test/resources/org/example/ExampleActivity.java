@@ -6,16 +6,16 @@ import android.widget.TextView;
 
 public class ExampleActivity extends Activity {
 
-  @Override
-  public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-    TextView text = new TextView(this);
-    text.setText("Hello World");
-    setContentView(text);
-  }
+        TextView text = new TextView(this);
+        text.setText("Hello World");
+        setContentView(text);
+    }
 
-  public void notCoveredByTests() {
-  }
+    public void notCoveredByTests() {
+    }
 
 }

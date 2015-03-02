@@ -20,55 +20,66 @@
 package org.sonar.plugins.android.lint;
 
 import com.android.SdkConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
+import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.resources.Project;
-import org.sonar.api.scan.filesystem.FileQuery;
-import org.sonar.api.scan.filesystem.ModuleFileSystem;
 
 import java.io.File;
 
 public class AndroidLintSensor implements Sensor {
 
-  private RulesProfile profile;
+    private static final Logger LOG = LoggerFactory.getLogger(AndroidLintSensor.class);
 
-  private AndroidLintExecutor executor;
+    private RulesProfile profile;
 
-  private ModuleFileSystem fs;
+    private AndroidLintExecutor executor;
 
-  public AndroidLintSensor(RulesProfile profile, AndroidLintExecutor executor, ModuleFileSystem fs) {
-    this.profile = profile;
-    this.executor = executor;
-    this.fs = fs;
-  }
+    private final FileSystem fileSystem;
 
-  @Override
-  public void analyse(Project project, SensorContext sensorContext) {
-    executor.execute(sensorContext, project);
-  }
-
-  @Override
-  public boolean shouldExecuteOnProject(Project project) {
-    return !fs.files(FileQuery.onSource().onLanguage("java")).isEmpty()
-        && !profile.getActiveRulesByRepository(AndroidLintRuleRepository.REPOSITORY_KEY).isEmpty()
-        && hasAndroidManifest();
-  }
-
-  private boolean hasAndroidManifest() {
-    boolean result = new File(fs.baseDir(), SdkConstants.ANDROID_MANIFEST_XML).exists();
-    if (!result) {
-      for (File sourceDir : fs.sourceDirs()) {
-        if (new File(sourceDir, SdkConstants.ANDROID_MANIFEST_XML).exists()) {
-          return true;
-        }
-      }
+    public AndroidLintSensor(RulesProfile profile, AndroidLintExecutor executor, FileSystem fs) {
+        this.profile = profile;
+        this.executor = executor;
+        this.fileSystem = fs;
     }
-    return result;
-  }
 
-  @Override
-  public String toString() {
-    return this.getClass().getSimpleName();
-  }
+    @Override
+    public void analyse(Project project, SensorContext sensorContext) {
+        executor.execute(sensorContext, project);
+    }
+
+    @Override
+    public boolean shouldExecuteOnProject(Project project) {
+
+
+        return fileSystem.languages().contains("java")
+                && !profile.getActiveRulesByRepository(AndroidLintRuleRepository.REPOSITORY_KEY).isEmpty()
+                && (hasAndroidManifest(project) || isGradleProject(project));
+
+    }
+
+    private boolean hasAndroidManifest(Project project) {
+        boolean result = new File(fileSystem.baseDir(), SdkConstants.ANDROID_MANIFEST_XML).exists();
+        if (!result) {
+            for (File sourceDir : project.getFileSystem().getSourceDirs()) {
+                if (new File(sourceDir, SdkConstants.ANDROID_MANIFEST_XML).exists()) {
+                    return true;
+                }
+            }
+        }
+        return result;
+    }
+
+    private boolean isGradleProject(Project project) {
+
+        return new File(project.getFileSystem().getBasedir(), "build.gradle").exists();
+    }
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName();
+    }
 }

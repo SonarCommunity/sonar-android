@@ -25,10 +25,10 @@ import static org.fest.assertions.Assertions.assertThat;
 
 public class AndroidLintVersionTest {
 
-  @Test
-  public void testGetVersion() {
-    assertThat(AndroidLintVersion.getVersion()).isEqualTo("22.2.0");
+    @Test
+    public void testGetVersion() {
+        assertThat(AndroidLintVersion.getVersion()).isEqualTo("22.2.0");
 
-    assertThat(AndroidLintVersion.readVersion("/foo/bar")).isEqualTo("");
-  }
+        assertThat(AndroidLintVersion.readVersion("/foo/bar")).isEqualTo("");
+    }
 }

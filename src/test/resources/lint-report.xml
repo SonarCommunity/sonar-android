@@ -352,23 +352,23 @@ Low density is not really used much anymore, so this check ignores the ldpi dens
                 line="8"
                 column="5"/>
     </issue>
-    
+
     <issue
             id="DefaultLocale"
-        	severity="Warning"
-        	message="Implicitly using the default locale is a common source of bugs: Use toLowerCase(Locale) instead"
-        	category="Correctness"
-        	priority="6"
-        	summary="Finds calls to locale-ambiguous String manipulation methods"
-        	explanation="Calling `String#toLowerCase()` or `#toUpperCase()` *without specifying an explicit locale* is a common source of bugs. The reason for that is that those methods will use the current locale on the user&apos;s device, and even though the code appears to work correctly when you are developing the app, it will fail in some locales. For example, in the Turkish locale, the uppercase replacement for `i` is *not* `I`.
+            severity="Warning"
+            message="Implicitly using the default locale is a common source of bugs: Use toLowerCase(Locale) instead"
+            category="Correctness"
+            priority="6"
+            summary="Finds calls to locale-ambiguous String manipulation methods"
+            explanation="Calling `String#toLowerCase()` or `#toUpperCase()` *without specifying an explicit locale* is a common source of bugs. The reason for that is that those methods will use the current locale on the user&apos;s device, and even though the code appears to work correctly when you are developing the app, it will fail in some locales. For example, in the Turkish locale, the uppercase replacement for `i` is *not* `I`.
 
 If you want the methods to just perform ASCII replacement, for example to convert an enum name, call `String#toUpperCase(Locale.US)` instead. If you really want to use the current locale, call `String#toUpperCase(Locale.getDefault())` instead."
-        	url="http://developer.android.com/reference/java/util/Locale.html#default_locale"
-        	errorLine1="            String str = String.valueOf(result).toLowerCase();"
-        	errorLine2="                                                ~~~~~~~~~~~">
+            url="http://developer.android.com/reference/java/util/Locale.html#default_locale"
+            errorLine1="            String str = String.valueOf(result).toLowerCase();"
+            errorLine2="                                                ~~~~~~~~~~~">
         <location
-        	    file="src\com\michaelnovakjr\numberpicker\NumberPicker.java"
-            	line="376"
-            	column="49"/>
-	</issue>
+                file="src\com\michaelnovakjr\numberpicker\NumberPicker.java"
+                line="376"
+                column="49"/>
+    </issue>
 </issues>
