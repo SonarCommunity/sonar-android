@@ -25,8 +25,8 @@ import static org.fest.assertions.Assertions.assertThat;
 
 public class AndroidPluginTest {
 
-  @Test
-  public void testGetExtensions() {
-    assertThat(new AndroidPlugin().getExtensions().size()).isEqualTo(5);
-  }
+    @Test
+    public void testGetExtensions() {
+        assertThat(new AndroidPlugin().getExtensions().size()).isEqualTo(5);
+    }
 }

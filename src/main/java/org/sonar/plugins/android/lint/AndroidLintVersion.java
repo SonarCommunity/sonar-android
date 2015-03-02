@@ -27,34 +27,34 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public enum AndroidLintVersion {
-  INSTANCE;
+    INSTANCE;
 
-  private static final String PROPERTIES_PATH = "/org/sonar/plugins/android/lint/android-plugin.properties";
-  private String version;
+    private static final String PROPERTIES_PATH = "/org/sonar/plugins/android/lint/android-plugin.properties";
+    private String version;
 
-  private AndroidLintVersion() {
-    this.version = readVersion(PROPERTIES_PATH);
-  }
-
-  public static String getVersion() {
-    return INSTANCE.version;
-  }
-
-
-  @VisibleForTesting
-  static String readVersion(String propertyPath) {
-    InputStream input = AndroidLintVersion.class.getResourceAsStream(propertyPath);
-    try {
-      Properties properties = new Properties();
-      properties.load(input);
-      return properties.getProperty("lint.version");
-
-    } catch (Exception e) {
-      LoggerFactory.getLogger(AndroidLintVersion.class).warn("Can not load the Android Lint version from the file " + propertyPath);
-      return "";
-
-    } finally {
-      IOUtils.closeQuietly(input);
+    private AndroidLintVersion() {
+        this.version = readVersion(PROPERTIES_PATH);
     }
-  }
+
+    public static String getVersion() {
+        return INSTANCE.version;
+    }
+
+
+    @VisibleForTesting
+    static String readVersion(String propertyPath) {
+        InputStream input = AndroidLintVersion.class.getResourceAsStream(propertyPath);
+        try {
+            Properties properties = new Properties();
+            properties.load(input);
+            return properties.getProperty("lint.version");
+
+        } catch (Exception e) {
+            LoggerFactory.getLogger(AndroidLintVersion.class).warn("Can not load the Android Lint version from the file " + propertyPath);
+            return "";
+
+        } finally {
+            IOUtils.closeQuietly(input);
+        }
+    }
 }

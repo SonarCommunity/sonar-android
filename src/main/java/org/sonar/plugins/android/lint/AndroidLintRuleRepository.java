@@ -27,26 +27,26 @@ import org.sonar.api.rules.XMLRuleParser;
 import java.util.List;
 
 /**
- * Repository for Android Lint rules (using {@link AndroidLintRuleParser}
+ * Repository for Android Lint rules
  *
  * @author Stephane Nicolas
  * @author Thomas Bores
  */
 public final class AndroidLintRuleRepository extends RuleRepository {
-  private final XMLRuleParser xmlRuleParser;
-  public static final String REPOSITORY_KEY = "android-lint";
-  public static final String REPOSITORY_NAME = "Android Lint";
+    private final XMLRuleParser xmlRuleParser;
+    public static final String REPOSITORY_KEY = "android-lint";
+    public static final String REPOSITORY_NAME = "Android Lint";
 
-  public AndroidLintRuleRepository(XMLRuleParser xmlRuleParser) {
-    super(REPOSITORY_KEY, "java");
-    setName(REPOSITORY_NAME);
-    this.xmlRuleParser = xmlRuleParser;
-  }
+    public AndroidLintRuleRepository(XMLRuleParser xmlRuleParser) {
+        super(REPOSITORY_KEY, "java");
+        setName(REPOSITORY_NAME);
+        this.xmlRuleParser = xmlRuleParser;
+    }
 
-  @Override
-  public List<Rule> createRules() {
-    List<Rule> rules = Lists.newArrayList();
-    rules.addAll(xmlRuleParser.parse(getClass().getResourceAsStream("/org/sonar/plugins/android/lint/rules.xml")));
-    return rules;
-  }
+    @Override
+    public List<Rule> createRules() {
+        List<Rule> rules = Lists.newArrayList();
+        rules.addAll(xmlRuleParser.parse(getClass().getResourceAsStream("/org/sonar/plugins/android/lint/rules.xml")));
+        return rules;
+    }
 }

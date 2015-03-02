@@ -30,20 +30,20 @@ import java.io.InputStreamReader;
 
 public class AndroidLintSonarWay extends ProfileDefinition {
 
-  private final XMLProfileParser parser;
+    private final XMLProfileParser parser;
 
-  public AndroidLintSonarWay(XMLProfileParser parser) {
-    this.parser = parser;
-  }
-
-  @Override
-  public RulesProfile createProfile(ValidationMessages validationMessages) {
-    InputStream input = getClass().getResourceAsStream("/org/sonar/plugins/android/lint/android_lint_sonar_way.xml");
-    InputStreamReader reader = new InputStreamReader(input);
-    try {
-      return parser.parse(reader, validationMessages);
-    } finally {
-      IOUtils.closeQuietly(reader);
+    public AndroidLintSonarWay(XMLProfileParser parser) {
+        this.parser = parser;
     }
-  }
+
+    @Override
+    public RulesProfile createProfile(ValidationMessages validationMessages) {
+        InputStream input = getClass().getResourceAsStream("/org/sonar/plugins/android/lint/android_lint_sonar_way.xml");
+        InputStreamReader reader = new InputStreamReader(input);
+        try {
+            return parser.parse(reader, validationMessages);
+        } finally {
+            IOUtils.closeQuietly(reader);
+        }
+    }
 }

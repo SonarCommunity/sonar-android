@@ -36,44 +36,44 @@ import java.io.File;
 
 public class AndroidEmmaSensor implements Sensor, CoverageExtension {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(AndroidEmmaSensor.class);
-  private final JavaResourceLocator javaResourceLocator;
-  private final Settings settings;
-  private final FileSystem fileSystem;
-  private String emmaReportDirectory;
+    private static final Logger LOGGER = LoggerFactory.getLogger(AndroidEmmaSensor.class);
+    private final JavaResourceLocator javaResourceLocator;
+    private final Settings settings;
+    private final FileSystem fileSystem;
+    private String emmaReportDirectory;
 
-  public AndroidEmmaSensor(Settings settings, JavaResourceLocator javaResourceLocator, FileSystem fileSystem) {
-    this.javaResourceLocator = javaResourceLocator;
-    this.settings = settings;
-    this.fileSystem = fileSystem;
-  }
-
-  @Override
-  public boolean shouldExecuteOnProject(Project project) {
-    emmaReportDirectory = settings.getString(AndroidPlugin.EMMA_REPORT_DIR_PROPERTY);
-
-    return !StringUtils.isEmpty(emmaReportDirectory) && fileSystem.hasFiles(fileSystem.predicates().hasLanguage("java"));
-  }
-
-  @Override
-  public void analyse(Project project, SensorContext context) {
-    File reportsPath = project.getFileSystem().resolvePath(emmaReportDirectory);
-    if (reportsPath == null) {
-      LOGGER.warn("Directory {} not found on file system", emmaReportDirectory);
-      return;
-    }
-    if (!reportsPath.exists() || !reportsPath.isDirectory()) {
-      LOGGER.warn("Emma reports not found in {}", reportsPath);
-      return;
+    public AndroidEmmaSensor(Settings settings, JavaResourceLocator javaResourceLocator, FileSystem fileSystem) {
+        this.javaResourceLocator = javaResourceLocator;
+        this.settings = settings;
+        this.fileSystem = fileSystem;
     }
 
-    LOGGER.info("Parse reports: " + reportsPath);
-    new AndroidEmmaProcessor(reportsPath, javaResourceLocator, context).process();
-  }
+    @Override
+    public boolean shouldExecuteOnProject(Project project) {
+        emmaReportDirectory = settings.getString(AndroidPlugin.EMMA_REPORT_DIR_PROPERTY);
 
-  @Override
-  public String toString() {
-    return getClass().getSimpleName();
-  }
+        return !StringUtils.isEmpty(emmaReportDirectory) && fileSystem.hasFiles(fileSystem.predicates().hasLanguage("java"));
+    }
+
+    @Override
+    public void analyse(Project project, SensorContext context) {
+        File reportsPath = project.getFileSystem().resolvePath(emmaReportDirectory);
+        if (reportsPath == null) {
+            LOGGER.warn("Directory {} not found on file system", emmaReportDirectory);
+            return;
+        }
+        if (!reportsPath.exists() || !reportsPath.isDirectory()) {
+            LOGGER.warn("Emma reports not found in {}", reportsPath);
+            return;
+        }
+
+        LOGGER.info("Parse reports: " + reportsPath);
+        new AndroidEmmaProcessor(reportsPath, javaResourceLocator, context).process();
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName();
+    }
 
 }
