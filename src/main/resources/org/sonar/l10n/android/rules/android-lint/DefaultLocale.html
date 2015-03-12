@@ -1,8 +1,0 @@
-<p>Finds calls to locale-ambiguous <code>String</code> manipulation methods</p>
-
-<p>Calling <code>String#toLowerCase()</code> or <code>#toUpperCase()</code> <b>without specifying an explicit locale</b> is a common source of bugs. The reason for that is that those methods will use the current locale on the user's device, and even though the code appears to work correctly when you are developing the app, it will fail in some locales. For example, in the Turkish locale, the uppercase replacement for <code>i</code> is <b>not</b> <code>I</code>.<br/>
-<br/>
-If you want the methods to just perform ASCII replacement, for example to convert an enum name, call <code>String#toUpperCase(Locale.US)</code> instead. If you really want to use the current locale, call <code>String#toUpperCase(Locale.getDefault())</code> instead.</p>
-
-<ul>
-<li>http://developer.android.com/reference/java/util/Locale.html#default_locale</li></ul>

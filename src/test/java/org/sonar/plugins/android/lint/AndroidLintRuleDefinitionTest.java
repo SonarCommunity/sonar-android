@@ -17,16 +17,30 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.plugins.android;
+package org.sonar.plugins.android.lint;
 
 import org.junit.Test;
+import org.sonar.api.server.rule.RulesDefinition;
+import org.sonar.api.server.rule.RulesDefinitionXmlLoader;
+
+import java.util.List;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-public class AndroidPluginTest {
+/**
+ * This class tests the AndroidLintRuleRepository class
+ *
+ * @author Florian Roncari
+ */
+public class AndroidLintRuleDefinitionTest {
 
   @Test
-  public void testGetExtensions() {
-    assertThat(new AndroidPlugin().getExtensions().size()).isEqualTo(4);
+  public void createRulesTest() {
+    RulesDefinition rulesDefinition = new AndroidLintRulesDefinition(new RulesDefinitionXmlLoader());
+    RulesDefinition.Context context = new RulesDefinition.Context();
+    rulesDefinition.define(context);
+    RulesDefinition.Repository repository = context.repository(AndroidLintRulesDefinition.REPOSITORY_KEY);
+    List<RulesDefinition.Rule> rules = repository.rules();
+    assertThat(rules.size()).isEqualTo(208);
   }
 }

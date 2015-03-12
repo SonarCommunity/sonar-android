@@ -1,5 +1,0 @@
-<p>Checks that permission names are unique</p>
-
-<p>The unqualified names or your permissions must be unique. The reason for this is that at build time, the <code>aapt</code> tool will generate a class named <code>Manifest</code> which contains a field for each of your permissions. These fields are named using your permission unqualified names (i.e. the name portion after the last dot).<br/>
-<br/>
-If more than one permission maps to the same field name, that field will arbitrarily name just one of them.</p>

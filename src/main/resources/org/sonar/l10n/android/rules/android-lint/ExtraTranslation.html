@@ -1,5 +1,0 @@
-<p>Checks for translations that appear to be unused (no default language string)</p>
-
-<p>If a string appears in a specific language translation file, but there is no corresponding string in the default locale, then this string is probably unused. (It's technically possible that your application is only intended to run in a specific locale, but it's still a good idea to provide a fallback.).<br/>
-<br/>
-Note that these strings can lead to crashes if the string is looked up on any locale not providing a translation, so it's important to clean them up.</p>

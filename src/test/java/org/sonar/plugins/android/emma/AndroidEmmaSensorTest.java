@@ -1,20 +1,20 @@
 /*
- * Sonar, open source software quality management tool.
- * Copyright (C) 2009 SonarSource
- * mailto:contact AT sonarsource DOT com
+ * SonarQube Android Plugin
+ * Copyright (C) 2013 SonarSource and Jerome Van Der Linden, Stephane Nicolas, Florian Roncari, Thomas Bores, Jordan Hansen
+ * dev@sonar.codehaus.org
  *
- * Sonar is free software; you can redistribute it and/or
+ * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 3 of the License, or (at your option) any later version.
  *
- * Sonar is distributed in the hope that it will be useful,
+ * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
- * License along with Sonar; if not, write to the Free Software
+ * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
 
@@ -28,11 +28,8 @@ import org.sonar.api.batch.fs.internal.DefaultInputFile;
 import org.sonar.api.config.Settings;
 import org.sonar.api.measures.Metric;
 import org.sonar.api.resources.Project;
-import org.sonar.api.resources.ProjectFileSystem;
 import org.sonar.plugins.android.AndroidPlugin;
 import org.sonar.plugins.java.api.JavaResourceLocator;
-
-import java.io.File;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static org.mockito.Matchers.any;
@@ -49,15 +46,12 @@ public class AndroidEmmaSensorTest {
   private Project project;
   private Settings settings;
   private SensorContext context;
-  private ProjectFileSystem pfs;
   private JavaResourceLocator jrl;
   private DefaultFileSystem fs;
 
   @Before
   public void setUp() throws Exception {
     project = mock(Project.class);
-    pfs = mock(ProjectFileSystem.class);
-    when(project.getFileSystem()).thenReturn(pfs);
     settings = new Settings();
     jrl = mock(JavaResourceLocator.class);
     fs = new DefaultFileSystem();
@@ -98,8 +92,7 @@ public class AndroidEmmaSensorTest {
 
   @Test
   public void should_process_emma_reports() throws Exception {
-    settings.setProperty(AndroidPlugin.EMMA_REPORT_DIR_PROPERTY, "emma");
-    when(pfs.resolvePath("emma")).thenReturn(new File(this.getClass().getResource("/emma").getFile()));
+    settings.setProperty(AndroidPlugin.EMMA_REPORT_DIR_PROPERTY, getClass().getResource("/emma").getFile());
     DefaultInputFile buildConfig = new DefaultInputFile("org/example/BuildConfig.java");
     buildConfig.setLanguage("java");
     fs.add(buildConfig);

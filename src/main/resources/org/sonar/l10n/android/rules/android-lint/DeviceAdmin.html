@@ -1,9 +1,0 @@
-<p>Ensures that device admins are properly registered</p>
-
-<p>If you register a broadcast receiver which acts as a device admin, you must also register an <code>&lt;intent-filter></code> for the action <code>android.app.action.DEVICE_ADMIN_ENABLED</code>, without any <code>&lt;data></code>, such that the device admin can be activated/deactivated.<br/>
-<br/>
-To do this, add<br/>
-<code>&lt;intent-filter></code><br/>
-    <code>&lt;action android:name="android.app.action.DEVICE_ADMIN_ENABLED" /></code><br/>
-<code>&lt;/intent-filter></code><br/>
-to your <code>&lt;receiver></code>.</p>

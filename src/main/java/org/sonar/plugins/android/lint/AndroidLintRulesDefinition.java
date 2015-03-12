@@ -20,29 +20,36 @@
 package org.sonar.plugins.android.lint;
 
 import org.apache.commons.io.IOUtils;
-import org.sonar.api.profiles.ProfileDefinition;
-import org.sonar.api.profiles.RulesProfile;
-import org.sonar.api.profiles.XMLProfileParser;
-import org.sonar.api.utils.ValidationMessages;
+import org.sonar.api.server.rule.RulesDefinition;
+import org.sonar.api.server.rule.RulesDefinitionI18nLoader;
+import org.sonar.api.server.rule.RulesDefinitionXmlLoader;
+import org.sonar.plugins.java.Java;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-public class AndroidLintSonarWay extends ProfileDefinition {
+public class AndroidLintRulesDefinition implements RulesDefinition {
 
-  public static final String PROFILE_XML_PATH = "/org/sonar/plugins/android/lint/android_lint_sonar_way.xml";
-  private final XMLProfileParser parser;
+  public static final String REPOSITORY_KEY = "android-lint";
+  public static final String REPOSITORY_NAME = "Android Lint";
+  public static final String RULES_XML_PATH = "/org/sonar/plugins/android/lint/rules.xml";
 
-  public AndroidLintSonarWay(XMLProfileParser parser) {
-    this.parser = parser;
+
+  private RulesDefinitionXmlLoader xmlLoader;
+  private RulesDefinitionI18nLoader i18nLoader;
+
+  public AndroidLintRulesDefinition(RulesDefinitionXmlLoader xmlLoader) {
+    this.xmlLoader = xmlLoader;
   }
 
   @Override
-  public RulesProfile createProfile(ValidationMessages validationMessages) {
-    InputStream input = getClass().getResourceAsStream(PROFILE_XML_PATH);
-    InputStreamReader reader = new InputStreamReader(input);
+  public void define(Context context) {
+    NewRepository repository = context.createRepository(REPOSITORY_KEY, Java.KEY).setName(REPOSITORY_NAME);
+    InputStream inputStream = getClass().getResourceAsStream(RULES_XML_PATH);
+    InputStreamReader reader = new InputStreamReader(inputStream);
     try {
-      return parser.parse(reader, validationMessages);
+      xmlLoader.load(repository, reader);
+      repository.done();
     } finally {
       IOUtils.closeQuietly(reader);
     }

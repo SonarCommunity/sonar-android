@@ -17,16 +17,44 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.plugins.android;
+package org.sonar.plugins.android.lint.dto;
 
-import org.junit.Test;
+import org.simpleframework.xml.Attribute;
+import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.Root;
 
-import static org.fest.assertions.Assertions.assertThat;
+import java.util.List;
 
-public class AndroidPluginTest {
+@Root(name="issue", strict = false)
+public class DtoIssue {
+  @Attribute
+  private String id;
+  @Attribute
+  private String message;
+  @ElementList(inline = true)
+  private List<DtoLocation> locations;
 
-  @Test
-  public void testGetExtensions() {
-    assertThat(new AndroidPlugin().getExtensions().size()).isEqualTo(4);
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  public String getMessage() {
+    return message;
+  }
+
+  public void setMessage(String message) {
+    this.message = message;
+  }
+
+  public List<DtoLocation> getLocations() {
+    return locations;
+  }
+
+  public void setLocations(List<DtoLocation> locations) {
+    this.locations = locations;
   }
 }

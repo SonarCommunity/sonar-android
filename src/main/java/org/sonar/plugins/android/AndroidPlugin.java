@@ -1,6 +1,6 @@
 /*
  * SonarQube Android Plugin
- * Copyright (C) 2013 SonarSource and Jerome Van Der Linden, Stephane Nicolas, Florian Roncari, Thomas Bores
+ * Copyright (C) 2013 SonarSource and Jerome Van Der Linden, Stephane Nicolas, Florian Roncari, Thomas Bores, Jordan Hansen
  * dev@sonar.codehaus.org
  *
  * This program is free software; you can redistribute it and/or
@@ -24,8 +24,7 @@ import org.sonar.api.Properties;
 import org.sonar.api.Property;
 import org.sonar.api.SonarPlugin;
 import org.sonar.plugins.android.emma.AndroidEmmaSensor;
-import org.sonar.plugins.android.lint.AndroidLintExecutor;
-import org.sonar.plugins.android.lint.AndroidLintRuleRepository;
+import org.sonar.plugins.android.lint.AndroidLintRulesDefinition;
 import org.sonar.plugins.android.lint.AndroidLintSensor;
 import org.sonar.plugins.android.lint.AndroidLintSonarWay;
 
@@ -34,24 +33,34 @@ import java.util.List;
 @Properties({
     @Property(
         key = AndroidPlugin.EMMA_REPORT_DIR_PROPERTY,
-        name = "Report file",
+        name = "Emma Report file",
         description = "Path (absolute or relative) of directory where the .ec and the .em Emma files are generated.",
         module = true,
         project = true,
         global = false
+    ),
+    @Property(
+            key = AndroidPlugin.LINT_REPORT_PROPERTY,
+            name = "Lint Report file",
+            description = "Path (absolute or relative) to the lint-results.xml file.",
+            defaultValue = AndroidPlugin.LINT_REPORT_PROPERTY_DEFAULT,
+            module = true,
+            project = true,
+            global = false
     )
 })
 public class AndroidPlugin extends SonarPlugin {
 
   public static final String EMMA_REPORT_DIR_PROPERTY = "sonar.android.emma.report";
+  public static final String LINT_REPORT_PROPERTY = "sonar.android.lint.report";
+  public static final String LINT_REPORT_PROPERTY_DEFAULT = "build/outputs/lint-results.xml";
 
   @Override
   public List getExtensions() {
     return ImmutableList.of(
         AndroidLintSensor.class,
-        AndroidLintRuleRepository.class,
+        AndroidLintRulesDefinition.class,
         AndroidLintSonarWay.class,
-        AndroidLintExecutor.class,
         AndroidEmmaSensor.class
     );
   }
