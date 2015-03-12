@@ -1,3 +1,0 @@
-<p>Ensures that Handler classes do not hold on to a reference to an outer class</p>
-
-<p>In Android, Handler classes should be static or leaks might occur. Messages enqueued on the application thread's MessageQueue also retain their target Handler. If the Handler is an inner class, its outer class will be retained as well. To avoid leaking the outer class, declare the Handler as a static nested class with a WeakReference to its outer class.</p>

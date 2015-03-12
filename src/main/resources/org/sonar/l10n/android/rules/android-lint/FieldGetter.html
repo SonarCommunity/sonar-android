@@ -1,8 +1,0 @@
-<p>Suggests replacing uses of getters with direct field access within a class</p>
-
-<p>Accessing a field within the class that defines a getter for that field is at least 3 times faster than calling the getter. For simple getters that do nothing other than return the field, you might want to just reference the local field directly instead.<br/>
-<br/>
-<b>NOTE</b>: As of Android 2.3 (Gingerbread), this optimization is performed automatically by Dalvik, so there is no need to change your code; this is only relevant if you are targeting older versions of Android.</p>
-
-<ul>
-<li>http://developer.android.com/guide/practices/design/performance.html#internal_get_set</li></ul>

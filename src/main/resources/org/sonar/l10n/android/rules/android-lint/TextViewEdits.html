@@ -1,4 +1,0 @@
-<p>Looks for TextViews being used for input</p>
-
-<p>Using a <code>&lt;TextView></code> to input text is generally an error, you should be using <code>&lt;EditText></code> instead.  <code>EditText</code> is a subclass of <code>TextView</code>, and some of the editing support is provided by <code>TextView</code>, so it's possible to set some input-related properties on a <code>TextView</code>. However, using a <code>TextView</code> along with input attributes is usually a cut &amp; paste error. To input text you should be using <code>&lt;EditText></code>.<br/>
-This check also checks subclasses of <code>TextView</code>, such as <code>Button</code> and <code>CheckBox</code>, since these have the same issue: they should not be used with editable attributes.</p>

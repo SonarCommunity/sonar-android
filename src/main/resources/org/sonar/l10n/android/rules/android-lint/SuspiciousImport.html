@@ -1,5 +1,0 @@
-<p>Checks for 'import android.R' statements, which are usually accidental</p>
-
-<p>Importing <code>android.R</code> is usually not intentional; it sometimes happens when you use an IDE and ask it to automatically add imports at a time when your project's R class it not present.<br/>
-<br/>
-Once the import is there you might get a lot of "confusing" error messages because of course the fields available on <code>android.R</code> are not the ones you'd expect from just looking at your own <code>R</code> class.</p>

@@ -1,6 +1,6 @@
 /*
  * SonarQube Android Plugin
- * Copyright (C) 2013 SonarSource and Jerome Van Der Linden, Stephane Nicolas, Florian Roncari, Thomas Bores
+ * Copyright (C) 2013 SonarSource and Jerome Van Der Linden, Stephane Nicolas, Florian Roncari, Thomas Bores, Jordan Hansen
  * dev@sonar.codehaus.org
  *
  * This program is free software; you can redistribute it and/or

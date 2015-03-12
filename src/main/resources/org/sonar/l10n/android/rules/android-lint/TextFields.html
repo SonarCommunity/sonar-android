@@ -1,7 +1,0 @@
-<p>Looks for text fields missing <code>inputType</code> or <code>hint</code> settings</p>
-
-<p>Providing an <code>inputType</code> attribute on a text field improves usability because depending on the data to be input, optimized keyboards can be shown to the user (such as just digits and parentheses for a phone number). Similarly,a hint attribute displays a hint to the user for what is expected in the text field.<br/>
-<br/>
-The lint detector also looks at the <code>id</code> of the view, and if the id offers a hint of the purpose of the field (for example, the <code>id</code> contains the phrase <code>phone</code> or <code>email</code>), then lint will also ensure that the <code>inputType</code> contains the corresponding type attributes.<br/>
-<br/>
-If you really want to keep the text field generic, you can suppress this warning by setting <code>inputType="text"</code>.</p>

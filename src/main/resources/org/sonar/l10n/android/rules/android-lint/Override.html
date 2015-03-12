@@ -1,8 +1,0 @@
-<p>Finds method declarations that will accidentally override methods in later versions</p>
-
-<p>Suppose you are building against Android API 8, and you've subclassed Activity. In your subclass you add a new method called <code>isDestroyed</code>(). At some later point, a method of the same name and signature is added to Android. Your method will now override the Android method, and possibly break its contract. Your method is not calling <code>super.isDestroyed()</code>, since your compilation target doesn't know about the method.<br/>
-<br/>
-The above scenario is what this lint detector looks for. The above example is real, since <code>isDestroyed()</code> was added in API 17, but it will be true for <b>any</b> method you have added to a subclass of an Android class where your build target is lower than the version the method was introduced in.<br/>
-<br/>
-To fix this, either rename your method, or if you are really trying to augment the builtin method if available, switch to a higher build target where you can deliberately add <code>@Override</code> on your overriding method, and call <code>super</code> if appropriate etc.<br/>
-</p>
