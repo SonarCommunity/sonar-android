@@ -1,3 +1,0 @@
-<p>Looks for code cut &amp; paste mistakes in <code>findViewById()</code> calls</p>
-
-<p>This lint check looks for cases where you have cut &amp; pasted calls to <code>findViewById</code> but have forgotten to update the R.id field. It's possible that your code is simply (redundantly) looking up the field repeatedly, but lint cannot distinguish that from a case where you for example want to initialize fields <code>prev</code> and <code>next</code> and you cut &amp; pasted <code>findViewById(R.id.prev)</code> and forgot to update the second initialization to <code>R.id.next</code>.</p>

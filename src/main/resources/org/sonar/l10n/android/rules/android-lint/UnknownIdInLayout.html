@@ -1,5 +1,0 @@
-<p>Makes sure that @+id references refer to views in the same layout</p>
-
-<p>The <code>@+id/</code> syntax refers to an existing id, or creates a new one if it has not already been defined elsewhere. However, this means that if you have a typo in your reference, or if the referred view no longer exists, you do not get a warning since the id will be created on demand.<br/>
-<br/>
-This is sometimes intentional, for example where you are referring to a view which is provided in a different layout via an include. However, it is usually an accident where you have a typo or you have renamed a view without updating all the references to it.</p>

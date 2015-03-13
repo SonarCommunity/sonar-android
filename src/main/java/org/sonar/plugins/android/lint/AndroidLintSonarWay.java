@@ -30,6 +30,8 @@ import java.io.InputStreamReader;
 
 public class AndroidLintSonarWay extends ProfileDefinition {
 
+  public static final String PROFILE_XML_PATH = "/org/sonar/plugins/android/lint/android_lint_sonar_way.xml";
+
   private final XMLProfileParser parser;
 
   public AndroidLintSonarWay(XMLProfileParser parser) {
@@ -38,7 +40,7 @@ public class AndroidLintSonarWay extends ProfileDefinition {
 
   @Override
   public RulesProfile createProfile(ValidationMessages validationMessages) {
-    InputStream input = getClass().getResourceAsStream("/org/sonar/plugins/android/lint/android_lint_sonar_way.xml");
+    InputStream input = getClass().getResourceAsStream(PROFILE_XML_PATH);
     InputStreamReader reader = new InputStreamReader(input);
     try {
       return parser.parse(reader, validationMessages);

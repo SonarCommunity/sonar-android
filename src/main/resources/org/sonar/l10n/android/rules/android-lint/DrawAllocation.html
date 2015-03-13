@@ -1,7 +1,0 @@
-<p>Looks for memory allocations within drawing code</p>
-
-<p>You should avoid allocating objects during a drawing or layout operation. These are called frequently, so a smooth UI can be interrupted by garbage collection pauses caused by the object allocations.<br/>
-<br/>
-The way this is generally handled is to allocate the needed objects up front and to reuse them for each drawing operation.<br/>
-<br/>
-Some methods allocate memory on your behalf (such as <code>Bitmap.create</code>), and these should be handled in the same way.</p>

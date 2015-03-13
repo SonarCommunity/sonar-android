@@ -1,3 +1,0 @@
-<p>Looks for usages of <code>new</code> for wrapper classes which should use <code>valueOf</code> instead</p>
-
-<p>You should not call the constructor for wrapper classes directly, such as`new Integer(42)`. Instead, call the <code>valueOf</code> factory method, such as <code>Integer.valueOf(42)</code>. This will typically use less memory because common integers such as 0 and 1 will share a single instance.</p>

@@ -1,8 +1,0 @@
-<p>Looks for hardcoded references to <code>/sdcard</code></p>
-
-<p>Your code should not reference the <code>/sdcard</code> path directly; instead use <code>Environment.getExternalStorageDirectory().getPath()</code>.<br/>
-<br/>
-Similarly, do not reference the <code>/data/data/</code> path directly; it can vary in multi-user scenarios. Instead, use <code>Context.getFilesDir().getPath()</code>.</p>
-
-<ul>
-<li>http://developer.android.com/guide/topics/data/data-storage.html#filesExternal</li></ul>

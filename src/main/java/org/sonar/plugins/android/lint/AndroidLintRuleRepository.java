@@ -36,6 +36,7 @@ public final class AndroidLintRuleRepository extends RuleRepository {
   private final XMLRuleParser xmlRuleParser;
   public static final String REPOSITORY_KEY = "android-lint";
   public static final String REPOSITORY_NAME = "Android Lint";
+  public static final String RULES_XML_PATH = "/org/sonar/plugins/android/lint/rules.xml";
 
   public AndroidLintRuleRepository(XMLRuleParser xmlRuleParser) {
     super(REPOSITORY_KEY, "java");
@@ -46,7 +47,7 @@ public final class AndroidLintRuleRepository extends RuleRepository {
   @Override
   public List<Rule> createRules() {
     List<Rule> rules = Lists.newArrayList();
-    rules.addAll(xmlRuleParser.parse(getClass().getResourceAsStream("/org/sonar/plugins/android/lint/rules.xml")));
+    rules.addAll(xmlRuleParser.parse(getClass().getResourceAsStream(RULES_XML_PATH)));
     return rules;
   }
 }

@@ -1,5 +1,0 @@
-<p>Checks for hardcoded values of <code>android:debuggable</code> in the manifest</p>
-
-<p>It's best to leave out the <code>android:debuggable</code> attribute from the manifest. If you do, then the tools will automatically insert <code>android:debuggable=true</code> when building an APK to debug on an emulator or device. And when you perform a release build, such as Exporting APK, it will automatically set it to <code>false</code>.<br/>
-<br/>
-If on the other hand you specify a specific value in the manifest file, then the tools will always use it. This can lead to accidentally publishing your app with debug information.</p>

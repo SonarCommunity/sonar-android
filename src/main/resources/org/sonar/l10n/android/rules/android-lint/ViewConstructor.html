@@ -1,8 +1,0 @@
-<p>Checks that custom views define the expected constructors</p>
-
-<p>Some layout tools (such as the Android layout editor for Eclipse) needs to find a constructor with one of the following signatures:<br/>
-* <code>View(Context context)</code><br/>
-* <code>View(Context context, AttributeSet attrs)</code><br/>
-* <code>View(Context context, AttributeSet attrs, int defStyle)</code><br/>
-<br/>
-If your custom view needs to perform initialization which does not apply when used in a layout editor, you can surround the given code with a check to see if <code>View#isInEditMode()</code> is false, since that method will return <code>false</code> at runtime but true within a user interface editor.</p>
