@@ -30,3 +30,7 @@ II - Running an analyse:
  - Add this property to your sonar-project.properties
   -> sonar.profile=Android Lint
 
+Note:
+-----
+To include xml resources you must install the XML language plugin.
+
