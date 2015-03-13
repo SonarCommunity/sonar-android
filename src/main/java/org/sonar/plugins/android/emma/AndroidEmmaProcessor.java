@@ -41,7 +41,6 @@ import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.PersistenceMode;
 import org.sonar.api.measures.PropertiesBuilder;
 import org.sonar.api.resources.Resource;
-import org.sonar.api.utils.SonarException;
 import org.sonar.plugins.java.api.JavaResourceLocator;
 
 import java.io.File;
@@ -69,7 +68,7 @@ public class AndroidEmmaProcessor {
       this.context = context;
       this.javaResourceLocator = javaResourceLocator;
     } catch (IOException e) {
-      throw new SonarException(e);
+      throw new IllegalStateException(e);
     }
   }
 

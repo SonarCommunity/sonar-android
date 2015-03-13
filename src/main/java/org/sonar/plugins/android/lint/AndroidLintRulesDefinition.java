@@ -1,6 +1,6 @@
 /*
  * SonarQube Android Plugin
- * Copyright (C) 2013 SonarSource and Jerome Van Der Linden, Stephane Nicolas, Florian Roncari, Thomas Bores
+ * Copyright (C) 2013 SonarSource and Jerome Van Der Linden, Stephane Nicolas, Florian Roncari, Thomas Bores, Jordan Hansen
  * dev@sonar.codehaus.org
  *
  * This program is free software; you can redistribute it and/or
@@ -19,35 +19,37 @@
  */
 package org.sonar.plugins.android.lint;
 
-import com.google.common.collect.Lists;
-import org.sonar.api.rules.Rule;
-import org.sonar.api.rules.RuleRepository;
-import org.sonar.api.rules.XMLRuleParser;
+import org.apache.commons.io.IOUtils;
+import org.sonar.api.server.rule.RulesDefinition;
+import org.sonar.api.server.rule.RulesDefinitionXmlLoader;
+import org.sonar.plugins.java.Java;
 
-import java.util.List;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
-/**
- * Repository for Android Lint rules (using {@link AndroidLintRuleParser}
- *
- * @author Stephane Nicolas
- * @author Thomas Bores
- */
-public final class AndroidLintRuleRepository extends RuleRepository {
-  private final XMLRuleParser xmlRuleParser;
+public class AndroidLintRulesDefinition implements RulesDefinition {
+
   public static final String REPOSITORY_KEY = "android-lint";
   public static final String REPOSITORY_NAME = "Android Lint";
   public static final String RULES_XML_PATH = "/org/sonar/plugins/android/lint/rules.xml";
 
-  public AndroidLintRuleRepository(XMLRuleParser xmlRuleParser) {
-    super(REPOSITORY_KEY, "java");
-    setName(REPOSITORY_NAME);
-    this.xmlRuleParser = xmlRuleParser;
+
+  private RulesDefinitionXmlLoader xmlLoader;
+
+  public AndroidLintRulesDefinition(RulesDefinitionXmlLoader xmlLoader) {
+    this.xmlLoader = xmlLoader;
   }
 
   @Override
-  public List<Rule> createRules() {
-    List<Rule> rules = Lists.newArrayList();
-    rules.addAll(xmlRuleParser.parse(getClass().getResourceAsStream(RULES_XML_PATH)));
-    return rules;
+  public void define(Context context) {
+    NewRepository repository = context.createRepository(REPOSITORY_KEY, Java.KEY).setName(REPOSITORY_NAME);
+    InputStream inputStream = getClass().getResourceAsStream(RULES_XML_PATH);
+    InputStreamReader reader = new InputStreamReader(inputStream);
+    try {
+      xmlLoader.load(repository, reader);
+      repository.done();
+    } finally {
+      IOUtils.closeQuietly(reader);
+    }
   }
 }

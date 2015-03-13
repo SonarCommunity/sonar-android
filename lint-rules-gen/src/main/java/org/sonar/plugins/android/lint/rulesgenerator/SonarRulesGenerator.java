@@ -27,7 +27,7 @@ import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.sonar.plugins.android.lint.AndroidLintRuleRepository;
+import org.sonar.plugins.android.lint.AndroidLintRulesDefinition;
 import org.sonar.plugins.android.lint.AndroidLintSonarWay;
 import org.sonar.plugins.android.lint.rulesgenerator.dto.DtoProfile;
 import org.sonar.plugins.android.lint.rulesgenerator.dto.DtoRule;
@@ -49,7 +49,7 @@ public class SonarRulesGenerator {
   private static final int WARNING_MAJOR_PRIORITY = 7;
   private static final String PROFILE_NAME = "Android Lint";
   private static final File BASE_OUTPUT_DIR = new File("out");
-  private static final File RULES_FILE = new File(BASE_OUTPUT_DIR, AndroidLintRuleRepository.RULES_XML_PATH);
+  private static final File RULES_FILE = new File(BASE_OUTPUT_DIR, AndroidLintRulesDefinition.RULES_XML_PATH);
   private static final File PROFILE_FILE = new File(BASE_OUTPUT_DIR, AndroidLintSonarWay.PROFILE_XML_PATH);
 
   private DtoProfile dtoProfile = new DtoProfile();
@@ -87,7 +87,7 @@ public class SonarRulesGenerator {
     dtoRules.addRule(dtoRule);
 
     if (issue.isEnabledByDefault()) {
-      dtoProfile.addRule(AndroidLintRuleRepository.REPOSITORY_KEY, dtoRule.getKey());
+      dtoProfile.addRule(AndroidLintRulesDefinition.REPOSITORY_KEY, dtoRule.getKey());
     }
   }
 

@@ -1,6 +1,6 @@
 /*
  * SonarQube Android Plugin
- * Copyright (C) 2013 SonarSource and Jerome Van Der Linden, Stephane Nicolas, Florian Roncari, Thomas Bores
+ * Copyright (C) 2013 SonarSource and Jerome Van Der Linden, Stephane Nicolas, Florian Roncari, Thomas Bores, Jordan Hansen
  * dev@sonar.codehaus.org
  *
  * This program is free software; you can redistribute it and/or
@@ -20,9 +20,8 @@
 package org.sonar.plugins.android.lint;
 
 import org.junit.Test;
-import org.sonar.api.rules.Rule;
-import org.sonar.api.rules.RuleRepository;
-import org.sonar.api.rules.XMLRuleParser;
+import org.sonar.api.server.rule.RulesDefinition;
+import org.sonar.api.server.rule.RulesDefinitionXmlLoader;
 
 import java.util.List;
 
@@ -33,14 +32,15 @@ import static org.fest.assertions.Assertions.assertThat;
  *
  * @author Florian Roncari
  */
-public class AndroidLintRuleRepositoryTest {
+public class AndroidLintRulesDefinitionTest {
 
   @Test
   public void createRulesTest() {
-    List<Rule> rules;
-    RuleRepository rulerep = new AndroidLintRuleRepository(new XMLRuleParser());
-    rules = rulerep.createRules();
-
+    RulesDefinition rulesDefinition = new AndroidLintRulesDefinition(new RulesDefinitionXmlLoader());
+    RulesDefinition.Context context = new RulesDefinition.Context();
+    rulesDefinition.define(context);
+    RulesDefinition.Repository repository = context.repository(AndroidLintRulesDefinition.REPOSITORY_KEY);
+    List<RulesDefinition.Rule> rules = repository.rules();
     assertThat(rules.size()).isEqualTo(158);
   }
 }
