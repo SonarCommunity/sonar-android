@@ -32,8 +32,8 @@ Must be a string value, using '\;' to escape characters such as '\n' or '\uxxxx'
    <rule>
       <key>ResAuto</key>
       <name>Hardcoded Package in Namespace</name>
-      <description><![CDATA[In Gradle projects, the actual package used in the final APK can vary; for you can add a <code>.debug</code> package suffix in one version and not the other. Therefore, you should <b>not</b> hardcode the application package in the resource; instead, use the special namespace <code>http://schemas.android.com/apk/res-auto</code> which will cause the tools to figure out the right namespace for the resource regardless of the actual package used during the build.]]></description>
-      <severity>CRITICAL</severity>
+      <description><![CDATA[In Gradle projects, the actual package used in the final APK can vary; for example,you can add a <code>.debug</code> package suffix in one version and not the other. Therefore, you should <b>not</b> hardcode the application package in the resource; instead, use the special namespace <code>http://schemas.android.com/apk/res-auto</code> which will cause the tools to figure out the right namespace for the resource regardless of the actual package used during the build.]]></description>
+      <severity>BLOCKER</severity>
       <string>Correctness</string>
    </rule>
    <rule>
@@ -56,6 +56,27 @@ Once the import is there you might get a lot of "confusing" error messages becau
       <key>WrongViewCast</key>
       <name>Mismatched view type</name>
       <description><![CDATA[Keeps track of the view types associated with ids and if it finds a usage of the id in the Java code it ensures that it is treated as the same type.]]></description>
+      <severity>BLOCKER</severity>
+      <string>Correctness</string>
+   </rule>
+   <rule>
+      <key>AaptCrash</key>
+      <name>Potential AAPT crash</name>
+      <description><![CDATA[Defining a style which sets <code>android:id</code> to a dynamically generated id can cause many versions of <code>aapt</code>, the resource packaging tool, to crash. To work around this, declare the id explicitly with <code>&lt;item type="id" name="..." /></code> instead.]]></description>
+      <severity>BLOCKER</severity>
+      <string>Correctness</string>
+   </rule>
+   <rule>
+      <key>AndroidGradlePluginVersion</key>
+      <name>Incompatible Android Gradle Plugin</name>
+      <description><![CDATA[Not all versions of the Android Gradle plugin are compatible with all versions of the SDK. If you update your tools, or if you are trying to open a project that was built with an old version of the tools, you may need to update your plugin version number.]]></description>
+      <severity>CRITICAL</severity>
+      <string>Correctness</string>
+   </rule>
+   <rule>
+      <key>GradleCompatible</key>
+      <name>Incompatible Gradle Versions</name>
+      <description><![CDATA[There are some combinations of libraries, or tools and libraries, that are incompatible, or can lead to bugs. One such incompatibility is compiling with a version of the Android support libraries that is not the latest version (or in particular, a version lower than your <code>targetSdkVersion</code>.)]]></description>
       <severity>CRITICAL</severity>
       <string>Correctness</string>
    </rule>
@@ -74,10 +95,19 @@ Once the import is there you might get a lot of "confusing" error messages becau
       <string>Correctness</string>
    </rule>
    <rule>
+      <key>MockLocation</key>
+      <name>Using mock location provider in production</name>
+      <description><![CDATA[Using a mock location provider (by requiring the permission <code>android.permission.ACCESS_MOCK_LOCATION</code>) should <b>only</b> be done in debug builds (or from tests). In Gradle projects, that means you should only request this permission in a test or debug source set specific manifest file.<br/>
+<br/>
+To fix this, create a new manifest file in the debug folder and move the <code>&lt;uses-permission></code> element there. A typical path to a debug manifest override file in a Gradle project is src/debug/AndroidManifest.xml.]]></description>
+      <severity>BLOCKER</severity>
+      <string>Correctness</string>
+   </rule>
+   <rule>
       <key>NamespaceTypo</key>
       <name>Misspelled namespace declaration</name>
       <description><![CDATA[Accidental misspellings in namespace declarations can lead to some very obscure error messages. This check looks for potential misspellings to help track these down.]]></description>
-      <severity>MAJOR</severity>
+      <severity>BLOCKER</severity>
       <string>Correctness</string>
    </rule>
    <rule>
@@ -89,6 +119,27 @@ Earlier versions of ADT used to create proguard.cfg files with the wrong format.
       <string>Correctness</string>
    </rule>
    <rule>
+      <key>ReferenceType</key>
+      <name>Incorrect reference types</name>
+      <description><![CDATA[When you generate a resource alias, the resource you are pointing to must be of the same type as the alias]]></description>
+      <severity>BLOCKER</severity>
+      <string>Correctness</string>
+   </rule>
+   <rule>
+      <key>ResourceCycle</key>
+      <name>Cycle in resource definitions</name>
+      <description><![CDATA[There should be no cycles in resource definitions as this can lead to runtime exceptions.]]></description>
+      <severity>BLOCKER</severity>
+      <string>Correctness</string>
+   </rule>
+   <rule>
+      <key>ResourceName</key>
+      <name>Resource with Wrong Prefix</name>
+      <description><![CDATA[In Gradle projects you can specify a resource prefix that all resources in the project must conform to. This makes it easier to ensure that you don't accidentally combine resources from different libraries, since they all end up in the same shared app namespace.]]></description>
+      <severity>BLOCKER</severity>
+      <string>Correctness</string>
+   </rule>
+   <rule>
       <key>ScrollViewCount</key>
       <name>ScrollViews can have only one child</name>
       <description><![CDATA[ScrollViews can only have one child widget. If you want more children, wrap them in a container layout.]]></description>
@@ -96,10 +147,12 @@ Earlier versions of ADT used to create proguard.cfg files with the wrong format.
       <string>Correctness</string>
    </rule>
    <rule>
-      <key>StyleCycle</key>
-      <name>Cycle in style definitions</name>
-      <description><![CDATA[There should be no cycles in style definitions as this can lead to runtime exceptions.]]></description>
-      <severity>BLOCKER</severity>
+      <key>StringShouldBeInt</key>
+      <name>String should be int</name>
+      <description><![CDATA[The properties <code>compileSdkVersion</code>, <code>minSdkVersion</code> and <code>targetSdkVersion</code> are usually numbers, but can be strings when you are using an add-on (in the case of <code>compileSdkVersion</code>) or a preview platform (for the other two properties).<br/>
+<br/>
+However, you can not use a number as a string (e.g. "19" instead of 19); that will result in a platform not found error message at build/sync time.]]></description>
+      <severity>CRITICAL</severity>
       <string>Correctness</string>
    </rule>
    <rule>
@@ -110,17 +163,10 @@ Earlier versions of ADT used to create proguard.cfg files with the wrong format.
       <string>Correctness</string>
    </rule>
    <rule>
-      <key>WrongCase</key>
-      <name>Wrong case for view tag</name>
-      <description><![CDATA[Most layout tags, such as &lt;Button>, refer to actual view classes and are therefore capitalized. However, there are exceptions such as &lt;fragment> and &lt;include>. This lint check looks for incorrect capitalizations.]]></description>
-      <severity>MAJOR</severity>
-      <string>Correctness</string>
-   </rule>
-   <rule>
       <key>WrongFolder</key>
       <name>Resource file in the wrong res folder</name>
       <description><![CDATA[Resource files are sometimes placed in the wrong folder, and it can lead to subtle bugs that are hard to understand. This check looks for problems in this area, such as attempting to place a layout "alias" file in a <code>layout/</code> folder rather than the <code>values/</code> folder where it belongs.]]></description>
-      <severity>CRITICAL</severity>
+      <severity>BLOCKER</severity>
       <string>Correctness</string>
    </rule>
    <rule>
@@ -158,7 +204,7 @@ to your <code>&lt;receiver></code>.]]></description>
       <key>DuplicateIds</key>
       <name>Duplicate ids within a single layout</name>
       <description><![CDATA[Within a layout, id's should be unique since otherwise <code>findViewById()</code> can return an unexpected view.]]></description>
-      <severity>MAJOR</severity>
+      <severity>BLOCKER</severity>
       <string>Correctness</string>
    </rule>
    <rule>
@@ -202,9 +248,43 @@ This check also checks subclasses of <code>TextView</code>, such as <code>Button
       <string>Correctness</string>
    </rule>
    <rule>
+      <key>WebViewLayout</key>
+      <name>WebViews in wrap_content parents</name>
+      <description><![CDATA[The WebView implementation has certain performance optimizations which will not work correctly if the parent view is using <code>wrap_content</code> rather than <code>match_parent</code>. This can lead to subtle UI bugs.]]></description>
+      <severity>CRITICAL</severity>
+      <string>Correctness</string>
+   </rule>
+   <rule>
+      <key>AppCompatMethod</key>
+      <name>Using Wrong AppCompat Method</name>
+      <description><![CDATA[When using the appcompat library, there are some methods you should be calling instead of the normal ones; for example, <code>getSupportActionBar()</code> instead of <code>getActionBar()</code>. This lint check looks for calls to the wrong method.]]></description>
+      <severity>MINOR</severity>
+      <string>Correctness</string>
+   </rule>
+   <rule>
+      <key>Assert</key>
+      <name>Assertions</name>
+      <description><![CDATA[Assertions are not checked at runtime. There are ways to request that they be used by Dalvik (<code>adb shell setprop debug.assert 1</code>), but the property is ignored in many places and can not be relied upon. Instead, perform conditional checking inside <code>if (BuildConfig.DEBUG) { }</code> blocks. That constant is a static final boolean which is true in debug builds and false in release builds, and the Java compiler completely removes all code inside the if-body from the app.<br/>
+<br/>
+For example, you can replace <code>assert speed > 0</code> with <code>if (BuildConfig.DEBUG &amp;&amp; !(speed > 0)) { throw new AssertionError() }</code>.<br/>
+<br/>
+(Note: This lint check does not flag assertions purely asserting nullness or non-nullness; these are typically more intended for tools usage than runtime checks.)]]></description>
+      <severity>MINOR</severity>
+      <string>Correctness</string>
+   </rule>
+   <rule>
       <key>CommitPrefEdits</key>
       <name>Missing commit() on SharedPreference editor</name>
       <description><![CDATA[After calling <code>edit()</code> on a <code>SharedPreference</code>, you must call <code>commit()</code> or <code>apply()</code> on the editor to save the results.]]></description>
+      <severity>MINOR</severity>
+      <string>Correctness</string>
+   </rule>
+   <rule>
+      <key>CustomViewStyleable</key>
+      <name>Mismatched Styleable/Custom View Name</name>
+      <description><![CDATA[The convention for custom views is to use a <code>declare-styleable</code> whose name matches the custom view class name. The IDE relies on this convention such that for example code completion can be offered for attributes in a custom view in layout XML resource files.<br/>
+<br/>
+(Similarly, layout parameter classes should use the suffix <code>_Layout</code>.)]]></description>
       <severity>MINOR</severity>
       <string>Correctness</string>
    </rule>
@@ -239,6 +319,22 @@ If you want the methods to just perform ASCII replacement, for example to conver
       <string>Correctness</string>
    </rule>
    <rule>
+      <key>GradleDeprecated</key>
+      <name>Deprecated Gradle Construct</name>
+      <description><![CDATA[This detector looks for deprecated Gradle constructs which currently work but will likely stop working in a future update.]]></description>
+      <severity>MINOR</severity>
+      <string>Correctness</string>
+   </rule>
+   <rule>
+      <key>GradleGetter</key>
+      <name>Gradle Implicit Getter Call</name>
+      <description><![CDATA[Gradle will let you replace specific constants in your build scripts with method calls, so you can for example dynamically compute a version string based on your current version control revision number, rather than hardcoding a number.<br/>
+<br/>
+When computing a version name, it's tempting to for example call the method to do that <code>getVersionName</code>. However, when you put that method call inside the <code>defaultConfig</code> block, you will actually be calling the Groovy getter for the <code>versionName</code> property instead. Therefore, you need to name your method something which does not conflict with the existing implicit getters. Consider using <code>compute</code> as a prefix instead of <code>get</code>.]]></description>
+      <severity>MAJOR</severity>
+      <string>Correctness</string>
+   </rule>
+   <rule>
       <key>InconsistentLayout</key>
       <name>Inconsistent Layouts</name>
       <description><![CDATA[This check ensures that a layout resource which is defined in multiple resource folders, specifies the same set of widgets.<br/>
@@ -254,7 +350,7 @@ There <b>are</b> cases where this is intentional. For example, you may have a de
       <name>Using inlined constants on older versions</name>
       <description><![CDATA[This check scans through all the Android API field references in the application and flags certain constants, such as static final integers and Strings, which were introduced in later versions. These will actually be copied into the class files rather than being referenced, which means that the value is available even when running on older devices. In some cases that's fine, and in other cases it can result in a runtime crash or incorrect behavior. It depends on the context, so consider the code carefully and device whether it's safe and can be suppressed or whether the code needs tbe guarded.<br/>
 <br/>
-If you really want to use this API and don't need to support older devices just set the <code>minSdkVersion</code> in your <code>AndroidManifest.xml</code> file.<br/>
+If you really want to use this API and don't need to support older devices just set the <code>minSdkVersion</code> in your <code>build.gradle</code> or <code>AndroidManifest.xml</code> files.<br/>
 If your code is <b>deliberately</b> accessing newer APIs, and you have ensured (e.g. with conditional execution) that this code will only ever be called on a supported platform, then you can annotate your class or method with the <code>@TargetApi</code> annotation specifying the local minimum SDK to apply, such as <code>@TargetApi(11)</code>, such that this check considers 11 rather than your manifest file's minimum SDK as the required API level.<br/>
 ]]></description>
       <severity>MINOR</severity>
@@ -264,7 +360,7 @@ If your code is <b>deliberately</b> accessing newer APIs, and you have ensured (
       <key>Instantiatable</key>
       <name>Registered class is not instantiatable</name>
       <description><![CDATA[Activities, services, broadcast receivers etc. registered in the manifest file must be "instantiatable" by the system, which means that the class must be public, it must have an empty public constructor, and if it's an inner class, it must be a static inner class.]]></description>
-      <severity>MINOR</severity>
+      <severity>BLOCKER</severity>
       <string>Correctness</string>
    </rule>
    <rule>
@@ -273,7 +369,7 @@ If your code is <b>deliberately</b> accessing newer APIs, and you have ensured (
       <description><![CDATA[An id definition <b>must</b> be of the form <code>@+id/yourname</code>. The tools have not rejected strings of the form <code>@+foo/bar</code> in the past, but that was an error, and could lead to tricky errors because of the way the id integers are assigned.<br/>
 <br/>
 If you really want to have different "scopes" for your id's, use prefixes instead, such as <code>login_button1</code> and <code>login_button2</code>.]]></description>
-      <severity>MAJOR</severity>
+      <severity>BLOCKER</severity>
       <string>Correctness</string>
    </rule>
    <rule>
@@ -288,10 +384,33 @@ This check scans through library jars and looks for references to API packages t
       <string>Correctness</string>
    </rule>
    <rule>
+      <key>InvalidResourceFolder</key>
+      <name>Invalid Resource Folder</name>
+      <description><![CDATA[This lint check looks for a folder name that is not a valid resource folder name; these will be ignored and not packaged by the Android Gradle build plugin.<br/>
+<br/>
+Note that the order of resources is very important; for example, you can't specify a language before a network code.<br/>
+<br/>
+Similarly, note that to use 3 letter language or region codes, you have to use a special BCP 47 syntax: the prefix b+ followed by the BCP 47 language tag but with <code>+</code> as the individual separators instead of <code>-</code>. Therefore, for the BCP 47 language tag <code>es-419</code> you have to use <code>b+es+419</code>.]]></description>
+      <severity>MAJOR</severity>
+      <string>Correctness</string>
+   </rule>
+   <rule>
       <key>LibraryCustomView</key>
       <name>Custom views in libraries should use res-auto-namespace</name>
       <description><![CDATA[When using a custom view with custom attributes in a library project, the layout must use the special namespace <a href="http://schemas.android.com/apk/res-auto">http://schemas.android.com/apk/res-auto</a> instead of a URI which includes the library project's own package. This will be used to automatically adjust the namespace of the attributes when the library resources are merged into the application project.]]></description>
-      <severity>MAJOR</severity>
+      <severity>BLOCKER</severity>
+      <string>Correctness</string>
+   </rule>
+   <rule>
+      <key>LocaleFolder</key>
+      <name>Wrong locale name</name>
+      <description><![CDATA[From the <code>java.util.Locale</code> documentation:<br/>
+"Note that Java uses several deprecated two-letter codes. The Hebrew ("he") language code is rewritten as "iw", Indonesian ("id") as "in", and Yiddish ("yi") as "ji". This rewriting happens even if you construct your own Locale object, not just for instances returned by the various lookup methods.<br/>
+<br/>
+Because of this, if you add your localized resources in for example <code>values-he</code> they will not be used, since the system will look for <code>values-iw</code> instead.<br/>
+<br/>
+To work around this, place your resources in a <code>values</code> folder using the deprecated language code instead.]]></description>
+      <severity>MINOR</severity>
       <string>Correctness</string>
    </rule>
    <rule>
@@ -315,10 +434,10 @@ Similarly, in manifest files, nearly all attributes should be in the <code>andro
       <name>Calling new methods on older versions</name>
       <description><![CDATA[This check scans through all the Android API calls in the application and warns about any calls that are not available on <b>all</b> versions targeted by this application (according to its minimum SDK attribute in the manifest).<br/>
 <br/>
-If you really want to use this API and don't need to support older devices just set the <code>minSdkVersion</code> in your <code>AndroidManifest.xml</code> file.<br/>
+If you really want to use this API and don't need to support older devices just set the <code>minSdkVersion</code> in your <code>build.gradle</code> or <code>AndroidManifest.xml</code> files.<br/>
 If your code is <b>deliberately</b> accessing newer APIs, and you have ensured (e.g. with conditional execution) that this code will only ever be called on a supported platform, then you can annotate your class or method with the <code>@TargetApi</code> annotation specifying the local minimum SDK to apply, such as <code>@TargetApi(11)</code>, such that this check considers 11 rather than your manifest file's minimum SDK as the required API level.<br/>
 <br/>
-If you are deliberately setting <code>android:</code> attributes in style definitions, make sure you place this in a <code>values-v11</code> folder in order to avoid running into runtime conflicts on certain devices where manufacturers have added custom attributes whose ids conflict with the new ones on later platforms.<br/>
+If you are deliberately setting <code>android:</code> attributes in style definitions, make sure you place this in a <code>values-vNN</code> folder in order to avoid running into runtime conflicts on certain devices where manufacturers have added custom attributes whose ids conflict with the new ones on later platforms.<br/>
 <br/>
 Similarly, you can use tools:targetApi="11" in an XML file to indicate that the element will only be inflated in an adequate context.]]></description>
       <severity>MAJOR</severity>
@@ -328,7 +447,7 @@ Similarly, you can use tools:targetApi="11" in an XML file to indicate that the 
       <key>NotSibling</key>
       <name>RelativeLayout Invalid Constraints</name>
       <description><![CDATA[Layout constraints in a given <code>RelativeLayout</code> should reference other views within the same relative layout.]]></description>
-      <severity>MAJOR</severity>
+      <severity>BLOCKER</severity>
       <string>Correctness</string>
    </rule>
    <rule>
@@ -349,6 +468,22 @@ The above scenario is what this lint detector looks for. The above example is re
 <br/>
 To fix this, either rename your method, or if you are really trying to augment the builtin method if available, switch to a higher build target where you can deliberately add <code>@Override</code> on your overriding method, and call <code>super</code> if appropriate etc.<br/>
 ]]></description>
+      <severity>MAJOR</severity>
+      <string>Correctness</string>
+   </rule>
+   <rule>
+      <key>OverrideAbstract</key>
+      <name>Not overriding abstract methods on older platforms</name>
+      <description><![CDATA[To improve the usability of some APIs, some methods that used to be <code>abstract</code> have been made concrete by adding default implementations. This means that when compiling with new versions of the SDK, your code does not have to override these methods.<br/>
+<br/>
+However, if your code is also targeting older versions of the platform where these methods were still <code>abstract</code>, the code will crash. You must override all methods that used to be abstract in any versions targeted by your application's <code>minSdkVersion</code>.]]></description>
+      <severity>BLOCKER</severity>
+      <string>Correctness</string>
+   </rule>
+   <rule>
+      <key>PropertyEscape</key>
+      <name>Incorrect property escapes</name>
+      <description><![CDATA[All backslashes and colons in .property files must be escaped with a backslash (\). This means that when writing a Windows path, you must escape the file separators, so the path \My\Files should be written as <code>key=\\My\\Files.</code>]]></description>
       <severity>MAJOR</severity>
       <string>Correctness</string>
    </rule>
@@ -374,7 +509,7 @@ Similarly, do not reference the <code>/data/data/</code> path directly; it can v
       <key>ServiceCast</key>
       <name>Wrong system service casts</name>
       <description><![CDATA[When you call <code>Context#getSystemService()</code>, the result is typically cast to a specific interface. This lint check ensures that the cast is compatible with the expected type of the return value.]]></description>
-      <severity>MAJOR</severity>
+      <severity>BLOCKER</severity>
       <string>Correctness</string>
    </rule>
    <rule>
@@ -408,7 +543,25 @@ However, if you use 0dp for the opposite dimension, the view will be invisible. 
       <description><![CDATA[The unqualified names or your permissions must be unique. The reason for this is that at build time, the <code>aapt</code> tool will generate a class named <code>Manifest</code> which contains a field for each of your permissions. These fields are named using your permission unqualified names (i.e. the name portion after the last dot).<br/>
 <br/>
 If more than one permission maps to the same field name, that field will arbitrarily name just one of them.]]></description>
-      <severity>MAJOR</severity>
+      <severity>BLOCKER</severity>
+      <string>Correctness</string>
+   </rule>
+   <rule>
+      <key>UnusedAttribute</key>
+      <name>Attribute unused on older versions</name>
+      <description><![CDATA[This check finds attributes set in XML files that were introduced in a version newer than the oldest version targeted by your application (with the <code>minSdkVersion</code> attribute).<br/>
+<br/>
+This is not an error; the application will simply ignore the attribute. However, if the attribute is important to the appearance of functionality of your application, you should consider finding an alternative way to achieve the same result with only available attributes, and then you can optionally create a copy of the layout in a layout-vNN folder which will be used on API NN or higher where you can take advantage of the newer attribute.<br/>
+<br/>
+Note: This check does not only apply to attributes. For example, some tags can be unused too, such as the new <code>&lt;tag></code> element in layouts introduced in API 21.]]></description>
+      <severity>MINOR</severity>
+      <string>Correctness</string>
+   </rule>
+   <rule>
+      <key>UseAlpha2</key>
+      <name>Using 3-letter Codes</name>
+      <description><![CDATA[For compatibility with earlier devices, you should only use 3-letter language and region codes when there is no corresponding 2 letter code.]]></description>
+      <severity>MINOR</severity>
       <string>Correctness</string>
    </rule>
    <rule>
@@ -416,14 +569,14 @@ If more than one permission maps to the same field name, that field will arbitra
       <name>Fragment not instantiatable</name>
       <description><![CDATA[From the Fragment documentation:<br/>
 <b>Every</b> fragment must have an empty constructor, so it can be instantiated when restoring its activity's state. It is strongly recommended that subclasses do not have other constructors with parameters, since these constructors will not be called when the fragment is re-instantiated; instead, arguments can be supplied by the caller with <code>setArguments(Bundle)</code> and later retrieved by the Fragment with <code>getArguments()</code>.]]></description>
-      <severity>MAJOR</severity>
+      <severity>BLOCKER</severity>
       <string>Correctness</string>
    </rule>
    <rule>
       <key>WrongCall</key>
       <name>Using wrong draw/layout method</name>
       <description><![CDATA[Custom views typically need to call <code>measure()</code> on their children, not <code>onMeasure</code>. Ditto for onDraw, onLayout, etc.]]></description>
-      <severity>MAJOR</severity>
+      <severity>BLOCKER</severity>
       <string>Correctness</string>
    </rule>
    <rule>
@@ -434,10 +587,21 @@ If more than one permission maps to the same field name, that field will arbitra
       <string>Correctness</string>
    </rule>
    <rule>
+      <key>WrongRegion</key>
+      <name>Suspicious Language/Region Combination</name>
+      <description><![CDATA[Android uses the letter codes ISO 639-1 for languages, and the letter codes ISO 3166-1 for the region codes. In many cases, the language code and the country where the language is spoken is the same, but it is also often not the case. For example, while 'se' refers to Sweden, where Swedish is spoken, the language code for Swedish is <b>not</b> <code>se</code> (which refers to the Northern Sami language), the language code is <code>sv</code>. And similarly the region code for <code>sv</code> is El Salvador.<br/>
+<br/>
+This lint check looks for suspicious language and region combinations, to help catch cases where you've accidentally used the wrong language or region code. Lint knows about the most common regions where a language is spoken, and if a folder combination is not one of these, it is flagged as suspicious.<br/>
+<br/>
+Note however that it may not be an error: you can theoretically have speakers of any language in any region and want to target that with your resources, so this check is aimed at tracking down likely mistakes, not to enforce a specific set of region and language combinations.]]></description>
+      <severity>MINOR</severity>
+      <string>Correctness</string>
+   </rule>
+   <rule>
       <key>DuplicateActivity</key>
       <name>Activity registered more than once</name>
       <description><![CDATA[An activity should only be registered once in the manifest. If it is accidentally registered more than once, then subtle errors can occur, since attribute declarations from the two elements are not merged, so you may accidentally remove previous declarations.]]></description>
-      <severity>MAJOR</severity>
+      <severity>BLOCKER</severity>
       <string>Correctness</string>
    </rule>
    <rule>
@@ -445,6 +609,34 @@ If more than one permission maps to the same field name, that field will arbitra
       <name>Feature declared more than once</name>
       <description><![CDATA[A given feature should only be declared once in the manifest.]]></description>
       <severity>MINOR</severity>
+      <string>Correctness</string>
+   </rule>
+   <rule>
+      <key>IncludeLayoutParam</key>
+      <name>Ignored layout params on include</name>
+      <description><![CDATA[Layout parameters specified on an <code>&lt;include></code> tag will only be used if you also override <code>layout_width</code> and <code>layout_height</code> on the <code>&lt;include></code> tag; otherwise they will be ignored.]]></description>
+      <severity>MAJOR</severity>
+      <string>Correctness</string>
+   </rule>
+   <rule>
+      <key>InflateParams</key>
+      <name>Layout Inflation without a Parent</name>
+      <description><![CDATA[When inflating a layout, avoid passing in null as the parent view, since otherwise any layout parameters on the root of the inflated layout will be ignored.]]></description>
+      <severity>MINOR</severity>
+      <string>Correctness</string>
+   </rule>
+   <rule>
+      <key>LogTagMismatch</key>
+      <name>Mismatched Log Tags</name>
+      <description><![CDATA[When guarding a <code>Log.v(tag, ...)</code> call with <code>Log.isLoggable(tag)</code>, the tag passed to both calls should be the same. Similarly, the level passed in to <code>Log.isLoggable</code> should typically match the type of <code>Log</code> call, e.g. if checking level <code>Log.DEBUG</code>, the corresponding <code>Log</code> call should be <code>Log.d</code>, not <code>Log.i</code>.]]></description>
+      <severity>MAJOR</severity>
+      <string>Correctness</string>
+   </rule>
+   <rule>
+      <key>LongLogTag</key>
+      <name>Too Long Log Tags</name>
+      <description><![CDATA[Log tags are only allowed to be at most 23 tag characters long.]]></description>
+      <severity>MAJOR</severity>
       <string>Correctness</string>
    </rule>
    <rule>
@@ -458,7 +650,7 @@ If more than one permission maps to the same field name, that field will arbitra
       <key>ManifestTypo</key>
       <name>Typos in manifest tags</name>
       <description><![CDATA[This check looks through the manifest, and if it finds any tags that look like likely misspellings, they are flagged.]]></description>
-      <severity>MINOR</severity>
+      <severity>BLOCKER</severity>
       <string>Correctness</string>
    </rule>
    <rule>
@@ -466,10 +658,20 @@ If more than one permission maps to the same field name, that field will arbitra
       <name>Fragments should specify an id or tag</name>
       <description><![CDATA[If you do not specify an android:id or an android:tag attribute on a &lt;fragment> element, then if the activity is restarted (for example for an orientation rotation) you may lose state. From the fragment documentation:<br/>
 <br/>
-"Each fragment requires a unique identifier that the system can use to restore the fragment if the activity is restarted (and which you can use to capture the fragment to perform transactions, such as remove it). * Supply the android:id attribute with a unique ID.<br/>
+"Each fragment requires a unique identifier that the system can use to restore the fragment if the activity is restarted (and which you can use to capture the fragment to perform transactions, such as remove it).<br/>
+* Supply the android:id attribute with a unique ID.<br/>
 * Supply the android:tag attribute with a unique string.<br/>
 If you provide neither of the previous two, the system uses the ID of the container view.]]></description>
       <severity>MINOR</severity>
+      <string>Correctness</string>
+   </rule>
+   <rule>
+      <key>NfcTechWhitespace</key>
+      <name>Whitespace in NFC tech lists</name>
+      <description><![CDATA[In a &lt;tech-list>, there can be whitespace around the &lt;tech> elements,but not inside them. This is because the code which reads in the tech list is currently very strict and will include the whitespace as part of the name.<br/>
+<br/>
+In other words, use &lt;tech>name&lt;/tech>, not &lt;tech> name &lt;/tech>.]]></description>
+      <severity>BLOCKER</severity>
       <string>Correctness</string>
    </rule>
    <rule>
@@ -503,6 +705,41 @@ This is sometimes intentional, for example where you are referring to a view whi
       <string>Correctness</string>
    </rule>
    <rule>
+      <key>GradleDependency</key>
+      <name>Obsolete Gradle Dependency</name>
+      <description><![CDATA[This detector looks for usages of libraries where the version you are using is not the current stable release. Using older versions is fine, and there are cases where you deliberately want to stick with an older version. However, you may simply not be aware that a more recent version is available, and that is what this lint check helps find.]]></description>
+      <severity>MINOR</severity>
+      <string>Correctness</string>
+   </rule>
+   <rule>
+      <key>GradleDynamicVersion</key>
+      <name>Gradle Dynamic Version</name>
+      <description><![CDATA[Using <code>+</code> in dependencies lets you automatically pick up the latest available version rather than a specific, named version. However, this is not recommended; your builds are not repeatable; you may have tested with a slightly different version than what the build server used. (Using a dynamic version as the major version number is more problematic than using it in the minor version position.)]]></description>
+      <severity>MINOR</severity>
+      <string>Correctness</string>
+   </rule>
+   <rule>
+      <key>GradleIdeError</key>
+      <name>Gradle IDE Support Issues</name>
+      <description><![CDATA[Gradle is highly flexible, and there are things you can do in Gradle files which can make it hard or impossible for IDEs to properly handle the project. This lint check looks for constructs that potentially break IDE support.]]></description>
+      <severity>MAJOR</severity>
+      <string>Correctness</string>
+   </rule>
+   <rule>
+      <key>GradleOverrides</key>
+      <name>Value overridden by Gradle build script</name>
+      <description><![CDATA[The value of (for example) <code>minSdkVersion</code> is only used if it is not specified in the <code>build.gradle</code> build scripts. When specified in the Gradle build scripts, the manifest value is ignored and can be misleading, so should be removed to avoid ambiguity.]]></description>
+      <severity>MINOR</severity>
+      <string>Correctness</string>
+   </rule>
+   <rule>
+      <key>GradlePath</key>
+      <name>Gradle Path Issues</name>
+      <description><![CDATA[Gradle build scripts are meant to be cross platform, so file paths use Unix-style path separators (a forward slash) rather than Windows path separators (a backslash). Similarly, to keep projects portable and repeatable, avoid using absolute paths on the system; keep files within the project instead. To share code between projects, consider creating an android-library and an AAR dependency]]></description>
+      <severity>MINOR</severity>
+      <string>Correctness</string>
+   </rule>
+   <rule>
       <key>GridLayout</key>
       <name>GridLayout validation</name>
       <description><![CDATA[Declaring a layout_row or layout_column that falls outside the declared size of a GridLayout's <code>rowCount</code> or <code>columnCount</code> is usually an unintentional error.]]></description>
@@ -519,12 +756,27 @@ While it should work in principle, unfortunately many devices do not report the 
       <string>Correctness</string>
    </rule>
    <rule>
+      <key>NewerVersionAvailable</key>
+      <name>Newer Library Versions Available</name>
+      <description><![CDATA[This detector checks with a central repository to see if there are newer versions available for the dependencies used by this project.<br/>
+This is similar to the <code>GradleDependency</code> check, which checks for newer versions available in the Android SDK tools and libraries, but this works with any MavenCentral dependency, and connects to the library every time, which makes it more flexible but also <b>much</b> slower.]]></description>
+      <severity>MINOR</severity>
+      <string>Correctness</string>
+   </rule>
+   <rule>
       <key>RequiredSize</key>
       <name>Missing layout_width or layout_height attributes</name>
       <description><![CDATA[All views must specify an explicit <code>layout_width</code> and <code>layout_height</code> attribute. There is a runtime check for this, so if you fail to specify a size, an exception is thrown at runtime.<br/>
 <br/>
 It's possible to specify these widths via styles as well. GridLayout, as a special case, does not require you to specify a size.]]></description>
       <severity>MAJOR</severity>
+      <string>Correctness</string>
+   </rule>
+   <rule>
+      <key>WrongCase</key>
+      <name>Wrong case for view tag</name>
+      <description><![CDATA[Most layout tags, such as &lt;Button>, refer to actual view classes and are therefore capitalized. However, there are exceptions such as &lt;fragment> and &lt;include>. This lint check looks for incorrect capitalizations.]]></description>
+      <severity>BLOCKER</severity>
       <string>Correctness</string>
    </rule>
    <rule>
@@ -582,6 +834,13 @@ To migrate your project to the new setup, create a new <code>proguard-project.tx
 <br/>
 There <b>are</b> cases where you might need to use <code>dp</code>; typically this happens when the text is in a container with a specific dp-size. This will prevent the text from spilling outside the container. Note however that this means that the user's font size settings are not respected, so consider adjusting the layout itself to be more flexible.]]></description>
       <severity>MINOR</severity>
+      <string>Correctness</string>
+   </rule>
+   <rule>
+      <key>AccidentalOctal</key>
+      <name>Accidental Octal</name>
+      <description><![CDATA[In Groovy, an integer literal that starts with a leading 0 will be interpreted as an octal number. That is usually (always?) an accident and can lead to subtle bugs, for example when used in the <code>versionCode</code> of an app.]]></description>
+      <severity>MAJOR</severity>
       <string>Correctness</string>
    </rule>
    <rule>
@@ -658,7 +917,7 @@ NOTE: Not all Strings which look like formatting strings are intended for use by
 This lint check looks at each translation of a <code>&lt;plural></code> and makes sure that all the quantity strings considered by the given language are provided by this translation.<br/>
 <br/>
 For example, an English translation must provide a string for <code>quantity="one"</code>. Similarly, a Czech translation must provide a string for <code>quantity="few"</code>.]]></description>
-      <severity>MAJOR</severity>
+      <severity>CRITICAL</severity>
       <string>Correctness</string>
       <string>Messages</string>
    </rule>
@@ -695,9 +954,40 @@ Note that these strings can lead to crashes if the string is looked up on any lo
       <string>Messages</string>
    </rule>
    <rule>
+      <key>ImpliedQuantity</key>
+      <name>Implied Quantities</name>
+      <description><![CDATA[Plural strings should generally include a <code>%s</code> or <code>%d</code> formatting argument. In locales like English, the <code>one</code> quantity only applies to a single value, 1, but that's not true everywhere. For example, in Slovene, the <code>one</code> quantity will apply to 1, 101, 201, 301, and so on. Similarly, there are locales where multiple values match the <code>zero</code> and <code>two</code> quantities.<br/>
+<br/>
+In these locales, it is usually an error to have a message which does not include a formatting argument (such as '%d'), since it will not be clear from the grammar what quantity the quantity string is describing.]]></description>
+      <severity>MAJOR</severity>
+      <string>Correctness</string>
+      <string>Messages</string>
+   </rule>
+   <rule>
+      <key>PluralsCandidate</key>
+      <name>Potential Plurals</name>
+      <description><![CDATA[This lint check looks for potential errors in internationalization where you have translated a message which involves a quantity and it looks like other parts of the string may need grammatical changes.<br/>
+<br/>
+For example, rather than something like this:<br/>
+  &lt;string name="try_again">Try again in %d seconds.&lt;/string><br/>
+you should be using a plural:<br/>
+   &lt;plurals name="try_again"><br/>
+        &lt;item quantity="one">Try again in %d second&lt;/item><br/>
+        &lt;item quantity="other">Try again in %d seconds&lt;/item><br/>
+    &lt;/plurals><br/>
+This will ensure that in other languages the right set of translations are provided for the different quantity classes.<br/>
+<br/>
+(This check depends on some heuristics, so it may not accurately determine whether a string really should be a quantity. You can use tools:ignore to filter out false positives.]]></description>
+      <severity>MINOR</severity>
+      <string>Correctness</string>
+      <string>Messages</string>
+   </rule>
+   <rule>
       <key>StringFormatCount</key>
-      <name>Formatting argument types inconsistent across translations</name>
-      <description><![CDATA[When a formatted string takes arguments, it usually needs to reference the same arguments in all translations. There are cases where this is not the case, so this issue is a warning rather than an error by default. However, this usually happens when a language is not translated or updated correctly.]]></description>
+      <name>Formatting argument types incomplete or inconsistent</name>
+      <description><![CDATA[When a formatted string takes arguments, it usually needs to reference the same arguments in all translations (or all arguments if there are no translations.<br/>
+<br/>
+There are cases where this is not the case, so this issue is a warning rather than an error by default. However, this usually happens when a language is not translated or updated correctly.]]></description>
       <severity>MINOR</severity>
       <string>Correctness</string>
       <string>Messages</string>
@@ -714,6 +1004,45 @@ For example, in Chinese, only the <code>other</code> quantity is used, so even i
       <string>Messages</string>
    </rule>
    <rule>
+      <key>AddJavascriptInterface</key>
+      <name>addJavascriptInterface Called</name>
+      <description><![CDATA[For applications built for API levels below 17, <code>WebView#addJavascriptInterface</code> presents a security hazard as JavaScript on the target web page has the ability to use reflection to access the injected object's public fields and thus manipulate the host application in unintended ways.]]></description>
+      <severity>MAJOR</severity>
+      <string>Security</string>
+   </rule>
+   <rule>
+      <key>GetInstance</key>
+      <name>Cipher.getInstance with ECB</name>
+      <description><![CDATA[<code>Cipher#getInstance</code> should not be called with ECB as the cipher mode or without setting the cipher mode because the default mode on android is ECB, which is insecure.]]></description>
+      <severity>MAJOR</severity>
+      <string>Security</string>
+   </rule>
+   <rule>
+      <key>SecureRandom</key>
+      <name>Using a fixed seed with SecureRandom</name>
+      <description><![CDATA[Specifying a fixed seed will cause the instance to return a predictable sequence of numbers. This may be useful for testing but it is not appropriate for secure use.]]></description>
+      <severity>MAJOR</severity>
+      <string>Security</string>
+   </rule>
+   <rule>
+      <key>TrulyRandom</key>
+      <name>Weak RNG</name>
+      <description><![CDATA[Key generation, signing, encryption, and random number generation may not receive cryptographically strong values due to improper initialization of the underlying PRNG on Android 4.3 and below.<br/>
+<br/>
+If your application relies on cryptographically secure random number generation you should apply the workaround described in https://android-developers.blogspot.com/2013/08/some-securerandom-thoughts.html .<br/>
+<br/>
+This lint rule is mostly informational; it does not accurately detect whether cryptographically secure RNG is required, or whether the workaround has already been applied. After reading the blog entry and updating your code if necessary, you can disable this lint issue.]]></description>
+      <severity>MAJOR</severity>
+      <string>Security</string>
+   </rule>
+   <rule>
+      <key>ExportedPreferenceActivity</key>
+      <name>PreferenceActivity should not be exported</name>
+      <description><![CDATA[Fragment injection gives anyone who can send your PreferenceActivity an intent the ability to load any fragment, with any arguments, in your process.]]></description>
+      <severity>MAJOR</severity>
+      <string>Security</string>
+   </rule>
+   <rule>
       <key>JavascriptInterface</key>
       <name>Missing @JavascriptInterface on methods</name>
       <description><![CDATA[As of API 17, you must annotate methods in objects registered with the <code>addJavascriptInterface</code> method with a <code>@JavascriptInterface</code> annotation.]]></description>
@@ -724,7 +1053,7 @@ For example, in Chinese, only the <code>other</code> quantity is used, so even i
       <key>PackagedPrivateKey</key>
       <name>Packaged private key</name>
       <description><![CDATA[In general, you should not package private key files inside your app.]]></description>
-      <severity>MAJOR</severity>
+      <severity>BLOCKER</severity>
       <string>Security</string>
    </rule>
    <rule>
@@ -745,6 +1074,20 @@ For example, in Chinese, only the <code>other</code> quantity is used, so even i
       <key>SetJavaScriptEnabled</key>
       <name>Using setJavaScriptEnabled</name>
       <description><![CDATA[Your code should not invoke <code>setJavaScriptEnabled</code> if you are not sure that your app really requires JavaScript support.]]></description>
+      <severity>MINOR</severity>
+      <string>Security</string>
+   </rule>
+   <rule>
+      <key>UseCheckPermission</key>
+      <name>Using the result of check permission calls</name>
+      <description><![CDATA[You normally want to use the result of checking a permission; these methods return whether the permission is held; they do not throw an error if the permission is not granted. Code which does not do anything with the return value probably meant to be calling the enforce methods instead, e.g. rather than <code>Context#checkCallingPermission</code> it should call <code>Context#enforceCallingPermission</code>.]]></description>
+      <severity>MINOR</severity>
+      <string>Security</string>
+   </rule>
+   <rule>
+      <key>UsingHttp</key>
+      <name>Using HTTP instead of HTTPS</name>
+      <description><![CDATA[The Gradle Wrapper is available both via HTTP and HTTPS. HTTPS is more secure since it protects against man-in-the-middle attacks etc. Older projects created in Android Studio used HTTP but we now default to HTTPS and recommend upgrading existing projects.]]></description>
       <severity>MINOR</severity>
       <string>Security</string>
    </rule>
@@ -775,6 +1118,13 @@ For example, in Chinese, only the <code>other</code> quantity is used, so even i
       <description><![CDATA[It's best to leave out the <code>android:debuggable</code> attribute from the manifest. If you do, then the tools will automatically insert <code>android:debuggable=true</code> when building an APK to debug on an emulator or device. And when you perform a release build, such as Exporting APK, it will automatically set it to <code>false</code>.<br/>
 <br/>
 If on the other hand you specify a specific value in the manifest file, then the tools will always use it. This can lead to accidentally publishing your app with debug information.]]></description>
+      <severity>BLOCKER</severity>
+      <string>Security</string>
+   </rule>
+   <rule>
+      <key>SignatureOrSystemPermissions</key>
+      <name>signatureOrSystem permissions declared</name>
+      <description><![CDATA[The <code>signature</code> protection level should probably be sufficient for most needs and works regardless of where applications are installed. The <code>signatureOrSystem</code> level is used for certain situations where multiple vendors have applications built into a system image and need to share specific features explicitly because they are being built together.]]></description>
       <severity>MINOR</severity>
       <string>Security</string>
    </rule>
@@ -815,13 +1165,6 @@ To fix this warning, decide whether your application should support backup, and 
 The way this is generally handled is to allocate the needed objects up front and to reuse them for each drawing operation.<br/>
 <br/>
 Some methods allocate memory on your behalf (such as <code>Bitmap.create</code>), and these should be handled in the same way.]]></description>
-      <severity>MAJOR</severity>
-      <string>Performance</string>
-   </rule>
-   <rule>
-      <key>SecureRandom</key>
-      <name>Using a fixed seed with SecureRandom</name>
-      <description><![CDATA[Specifying a fixed seed will cause the instance to return a predictable sequence of numbers. This may be useful for testing but it is not appropriate for secure use.]]></description>
       <severity>MAJOR</severity>
       <string>Performance</string>
    </rule>
@@ -867,6 +1210,22 @@ There's a lint quickfix to perform this conversion in the Eclipse plugin.]]></de
       <string>Performance</string>
    </rule>
    <rule>
+      <key>LogConditional</key>
+      <name>Unconditional Logging Calls</name>
+      <description><![CDATA[The BuildConfig class (available in Tools 17) provides a constant, "DEBUG", which indicates whether the code is being built in release mode or in debug mode. In release mode, you typically want to strip out all the logging calls. Since the compiler will automatically remove all code which is inside a "if (false)" check, surrounding your logging calls with a check for BuildConfig.DEBUG is a good idea.<br/>
+<br/>
+If you <b>really</b> intend for the logging to be present in release mode, you can suppress this warning with a @SuppressLint annotation for the intentional logging calls.]]></description>
+      <severity>MINOR</severity>
+      <string>Performance</string>
+   </rule>
+   <rule>
+      <key>ViewHolder</key>
+      <name>View Holder Candidates</name>
+      <description><![CDATA[When implementing a view Adapter, you should avoid unconditionally inflating a new layout; if an available item is passed in for reuse, you should try to use that one instead. This helps make for example ListView scrolling much smoother.]]></description>
+      <severity>MINOR</severity>
+      <string>Performance</string>
+   </rule>
+   <rule>
       <key>FieldGetter</key>
       <name>Using getter instead of field</name>
       <description><![CDATA[Accessing a field within the class that defines a getter for that field is at least 3 times faster than calling the getter. For simple getters that do nothing other than return the field, you might want to just reference the local field directly instead.<br/>
@@ -878,7 +1237,7 @@ There's a lint quickfix to perform this conversion in the Eclipse plugin.]]></de
    <rule>
       <key>HandlerLeak</key>
       <name>Handler reference leaks</name>
-      <description><![CDATA[In Android, Handler classes should be static or leaks might occur. Messages enqueued on the application thread's MessageQueue also retain their target Handler. If the Handler is an inner class, its outer class will be retained as well. To avoid leaking the outer class, declare the Handler as a static nested class with a WeakReference to its outer class.]]></description>
+      <description><![CDATA[Since this Handler is declared as an inner class, it may prevent the outer class from being garbage collected. If the Handler is using a Looper or MessageQueue for a thread other than the main thread, then there is no issue. If the Handler is using the Looper or MessageQueue of the main thread, you need to fix your Handler declaration, as follows: Declare the Handler as a static class; In the outer class, instantiate a WeakReference to the outer class and pass this object to your Handler when you instantiate the Handler; Make all references to members of the outer class using the WeakReference object.]]></description>
       <severity>MINOR</severity>
       <string>Performance</string>
    </rule>
@@ -1127,6 +1486,19 @@ The unique silhouette implies that your launcher icon should not be a filled squ
       <string>Icons</string>
    </rule>
    <rule>
+      <key>MipmapIcons</key>
+      <name>Use Mipmap Launcher Icons</name>
+      <description><![CDATA[Launcher icons should be provided in the <code>mipmap</code> resource directory. This is the same as the <code>drawable</code> resource directory, except resources in the <code>mipmap</code> directory will not get stripped out when creating density-specific APKs.<br/>
+<br/>
+In certain cases, the Launcher app may use a higher resolution asset (than would normally be computed for the device) to display large app shortcuts. If drawables for densities other than the device's resolution have been stripped out, then the app shortcut could appear blurry.<br/>
+<br/>
+To fix this, move your launcher icons from `drawable-`dpi to `mipmap-`dpi and change references from @drawable/ and R.drawable to @mipmap/ and R.mipmap.<br/>
+In Android Studio this lint warning has a quickfix to perform this automatically.]]></description>
+      <severity>MINOR</severity>
+      <string>Usability</string>
+      <string>Icons</string>
+   </rule>
+   <rule>
       <key>MissingApplicationIcon</key>
       <name>Missing application icon</name>
       <description><![CDATA[You should set an icon for the application as whole because there is no default. This attribute must be set as a reference to a drawable resource containing the image (for example <code>@drawable/icon</code>).]]></description>
@@ -1163,7 +1535,7 @@ Low density is not really used much anymore, so this check ignores the ldpi dens
    <rule>
       <key>IconMissingDensityFolder</key>
       <name>Missing density folder</name>
-      <description><![CDATA[Icons will look best if a custom version is provided for each of the major screen density classes (low, medium, high, extra high). This lint check identifies folders which are missing, such as <code>drawable-hdpi</code>.<br/>
+      <description><![CDATA[Icons will look best if a custom version is provided for each of the major screen density classes (low, medium, high, extra-high, extra-extra-high). This lint check identifies folders which are missing, such as <code>drawable-hdpi</code>.<br/>
 Low density is not really used much anymore, so this check ignores the ldpi density. To force lint to include it, set the environment variable <code>ANDROID_LINT_INCLUDE_LDPI=true</code>. For more information on current density usage, see <a href="http://developer.android.com/resources/dashboard/screens.html">http://developer.android.com/resources/dashboard/screens.html</a>]]></description>
       <severity>MINOR</severity>
       <string>Usability</string>
@@ -1200,6 +1572,15 @@ This check is not very sophisticated (it just looks for buttons with the label "
       <string>Usability</string>
    </rule>
    <rule>
+      <key>AppCompatResource</key>
+      <name>Menu namespace</name>
+      <description><![CDATA[When using the appcompat library, menu resources should refer to the <code>showAsAction</code> in the <code>app:</code> namespace, not the <code>android:</code> namespace.<br/>
+<br/>
+Similarly, when <b>not</b> using the appcompat library, you should be using the <code>android:showAsAction</code> attribute.]]></description>
+      <severity>MAJOR</severity>
+      <string>Usability</string>
+   </rule>
+   <rule>
       <key>ButtonStyle</key>
       <name>Button should be borderless</name>
       <description><![CDATA[Button bars typically use a borderless style for the buttons. Set the <code>style="?android:attr/buttonBarButtonStyle"</code> attribute on each of the buttons, and set <code>style="?android:attr/buttonBarStyle"</code> on the parent layout]]></description>
@@ -1216,7 +1597,7 @@ This check is not very sophisticated (it just looks for buttons with the label "
 * Screen readers for sight-impaired users read the menu item's title.<br/>
 * If the action item appears with only the icon, a user can long-press the item to reveal a tool-tip that displays the action item's title.<br/>
 The android:icon is always optional, but recommended.]]></description>
-      <severity>MINOR</severity>
+      <severity>MAJOR</severity>
       <string>Usability</string>
    </rule>
    <rule>
@@ -1227,6 +1608,13 @@ The android:icon is always optional, but recommended.]]></description>
 The lint detector also looks at the <code>id</code> of the view, and if the id offers a hint of the purpose of the field (for example, the <code>id</code> contains the phrase <code>phone</code> or <code>email</code>), then lint will also ensure that the <code>inputType</code> contains the corresponding type attributes.<br/>
 <br/>
 If you really want to keep the text field generic, you can suppress this warning by setting <code>inputType="text"</code>.]]></description>
+      <severity>MINOR</severity>
+      <string>Usability</string>
+   </rule>
+   <rule>
+      <key>NegativeMargin</key>
+      <name>Negative Margins</name>
+      <description><![CDATA[Margin values should be positive. Negative values are generally a sign that you are making assumptions about views surrounding the current one, or may be tempted to turn off child clipping to allow a view to escape its parent. Turning off child clipping to do this not only leads to poor graphical performance, it also results in wrong touch event handling since touch events are based strictly on a chain of parent-rect hit tests. Finally, making assumptions about the size of strings can lead to localization problems.]]></description>
       <severity>MINOR</severity>
       <string>Usability</string>
    </rule>
@@ -1258,7 +1646,7 @@ This check looks for menu XML files that contain more than two <code>always</cod
    <rule>
       <key>ViewConstructor</key>
       <name>Missing View constructors for XML inflation</name>
-      <description><![CDATA[Some layout tools (such as the Android layout editor for Eclipse) needs to find a constructor with one of the following signatures:<br/>
+      <description><![CDATA[Some layout tools (such as the Android layout editor for Studio &amp; Eclipse) needs to find a constructor with one of the following signatures:<br/>
 * <code>View(Context context)</code><br/>
 * <code>View(Context context, AttributeSet attrs)</code><br/>
 * <code>View(Context context, AttributeSet attrs, int defStyle)</code><br/>
@@ -1273,6 +1661,13 @@ If your custom view needs to perform initialization which does not apply when us
       <description><![CDATA[The standard capitalization for OK/Cancel dialogs is "OK" and "Cancel". To ensure that your dialogs use the standard strings, you can use the resource strings @android:string/ok and @android:string/cancel.]]></description>
       <severity>MINOR</severity>
       <string>Usability</string>
+   </rule>
+   <rule>
+      <key>ClickableViewAccessibility</key>
+      <name>Accessibility in Custom Views</name>
+      <description><![CDATA[If a <code>View</code> that overrides <code>onTouchEvent</code> or uses an <code>OnTouchListener</code> does not also implement <code>performClick</code> and call it when clicks are detected, the <code>View</code> may not handle accessibility actions properly. Logic handling the click actions should ideally be placed in <code>View#performClick</code> as some accessibility services invoke <code>performClick</code> when a click action should occur.]]></description>
+      <severity>MINOR</severity>
+      <string>Accessibility</string>
    </rule>
    <rule>
       <key>ContentDescription</key>
@@ -1295,6 +1690,23 @@ If your view is labeled but by a label in a different layout which includes this
       <string>Accessibility</string>
    </rule>
    <rule>
+      <key>ByteOrderMark</key>
+      <name>Byte order mark inside files</name>
+      <description><![CDATA[Lint will flag any byte-order-mark (BOM) characters it finds in the middle of a file. Since we expect files to be encoded with UTF-8 (see the EnforceUTF8 issue), the BOM characters are not necessary, and they are not handled correctly by all tools. For example, if you have a BOM as part of a resource name in one particular translation, that name will not be considered identical to the base resource's name and the translation will not be used.]]></description>
+      <severity>BLOCKER</severity>
+      <string>Internationalization</string>
+   </rule>
+   <rule>
+      <key>EnforceUTF8</key>
+      <name>Encoding used in resource files is not UTF-8</name>
+      <description><![CDATA[XML supports encoding in a wide variety of character sets. However, not all tools handle the XML encoding attribute correctly, and nearly all Android apps use UTF-8, so by using UTF-8 you can protect yourself against subtle bugs when using non-ASCII characters.<br/>
+<br/>
+In particular, the Android Gradle build system will merge resource XML files assuming the resource files are using UTF-8 encoding.<br/>
+]]></description>
+      <severity>BLOCKER</severity>
+      <string>Internationalization</string>
+   </rule>
+   <rule>
       <key>HardcodedText</key>
       <name>Hardcoded text</name>
       <description><![CDATA[Hardcoding text attributes directly in layout files is bad for several reasons:<br/>
@@ -1303,14 +1715,14 @@ If your view is labeled but by a label in a different layout which includes this
 <br/>
 * The application cannot be translated to other languages by just adding new translations for existing string resources.<br/>
 <br/>
-In Eclipse there is a quickfix to automatically extract this hardcoded string into a resource lookup.]]></description>
+In Android Studio and Eclipse there are quickfixes to automatically extract this hardcoded string into a resource lookup.]]></description>
       <severity>MINOR</severity>
       <string>Internationalization</string>
    </rule>
    <rule>
-      <key>EnforceUTF8</key>
-      <name>Encoding used in resource files is not UTF-8</name>
-      <description><![CDATA[XML supports encoding in a wide variety of character sets. However, not all tools handle the XML encoding attribute correctly, and nearly all Android apps use UTF-8, so by using UTF-8 you can protect yourself against subtle bugs when using non-ASCII characters.]]></description>
+      <key>RelativeOverlap</key>
+      <name>Overlapping items in RelativeLayout</name>
+      <description><![CDATA[If relative layout has text or button items aligned to left and right sides they can overlap each other due to localized text expansion unless they have mutual constraints like <code>toEndOf</code>/<code>toStartOf</code>.]]></description>
       <severity>MINOR</severity>
       <string>Internationalization</string>
    </rule>
@@ -1319,6 +1731,13 @@ In Eclipse there is a quickfix to automatically extract this hardcoded string in
       <name>Right-to-left text compatibility issues</name>
       <description><![CDATA[API 17 adds a <code>textAlignment</code> attribute to specify text alignment. However, if you are supporting older versions than API 17, you must <b>also</b> specify a gravity or layout_gravity attribute, since older platforms will ignore the <code>textAlignment</code> attribute.]]></description>
       <severity>MAJOR</severity>
+      <string>Bi-directional Text</string>
+   </rule>
+   <rule>
+      <key>RtlSymmetry</key>
+      <name>Padding and margin symmetry</name>
+      <description><![CDATA[If you specify padding or margin on the left side of a layout, you should probably also specify padding on the right side (and vice versa) for right-to-left layout symmetry.]]></description>
+      <severity>MINOR</severity>
       <string>Bi-directional Text</string>
    </rule>
    <rule>

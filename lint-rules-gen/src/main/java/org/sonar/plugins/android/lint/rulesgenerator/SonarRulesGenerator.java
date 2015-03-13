@@ -23,6 +23,7 @@ import com.android.tools.lint.checks.BuiltinIssueRegistry;
 import com.android.tools.lint.client.api.IssueRegistry;
 import com.android.tools.lint.detector.api.Category;
 import com.android.tools.lint.detector.api.Issue;
+import com.android.tools.lint.detector.api.TextFormat;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 import org.slf4j.Logger;
@@ -80,8 +81,8 @@ public class SonarRulesGenerator {
   private void processIssue(Issue issue) {
     DtoRule dtoRule = new DtoRule();
     dtoRule.setKey(issue.getId());
-    dtoRule.setName(issue.getBriefDescription(Issue.OutputFormat.TEXT));
-    dtoRule.setDescription(issue.getExplanation(Issue.OutputFormat.HTML));
+    dtoRule.setName(issue.getBriefDescription(TextFormat.TEXT));
+    dtoRule.setDescription(issue.getExplanation(TextFormat.HTML));
     dtoRule.setSeverity(getSeverity(issue));
     setTags(issue.getCategory(), dtoRule);
     dtoRules.addRule(dtoRule);

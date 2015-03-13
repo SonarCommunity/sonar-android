@@ -41,6 +41,6 @@ public class AndroidLintRulesDefinitionTest {
     rulesDefinition.define(context);
     RulesDefinition.Repository repository = context.repository(AndroidLintRulesDefinition.REPOSITORY_KEY);
     List<RulesDefinition.Rule> rules = repository.rules();
-    assertThat(rules.size()).isEqualTo(158);
+    assertThat(rules.size()).isEqualTo(208);
   }
 }
