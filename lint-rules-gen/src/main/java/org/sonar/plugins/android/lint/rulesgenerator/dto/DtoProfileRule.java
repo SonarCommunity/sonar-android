@@ -1,5 +1,5 @@
 /*
- * SonarQube Android Plugin
+ * SonarQube Android Plugin Rules Generator
  * Copyright (C) 2015 SonarSource and Jordan Hansen
  * dev@sonar.codehaus.org
  *

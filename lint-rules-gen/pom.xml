@@ -11,6 +11,8 @@
 
   <artifactId>lint-rules-gen</artifactId>
 
+  <name>SonarQube Android Plugin Rules Generator</name>
+
   <inceptionYear>2015</inceptionYear>
   <organization>
     <name>SonarSource and Jordan Hansen</name>
