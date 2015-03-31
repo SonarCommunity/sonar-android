@@ -1,7 +1,0 @@
-<p>Checks that layout variations are consistent</p>
-
-<p>This check ensures that a layout resource which is defined in multiple resource folders, specifies the same set of widgets.<br/>
-<br/>
-This finds cases where you have accidentally forgotten to add a widget to all variations of the layout, which could result in a runtime crash for some resource configurations when a <code>findViewById()</code> fails.<br/>
-<br/>
-There <b>are</b> cases where this is intentional. For example, you may have a dedicated large tablet layout which adds some extra widgets that are not present in the phone version of the layout. As long as the code accessing the layout resource is careful to handle this properly, it is valid. In that case, you can suppress this lint check for the given extra or missing views, or the whole layout</p>

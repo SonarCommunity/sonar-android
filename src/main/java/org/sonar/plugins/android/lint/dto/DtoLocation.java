@@ -17,16 +17,33 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.plugins.android;
+package org.sonar.plugins.android.lint.dto;
 
-import org.junit.Test;
+import org.simpleframework.xml.Attribute;
+import org.simpleframework.xml.Root;
 
-import static org.fest.assertions.Assertions.assertThat;
+@Root(name="location", strict = false)
+public class DtoLocation {
 
-public class AndroidPluginTest {
+  @Attribute
+  private String file;
 
-  @Test
-  public void testGetExtensions() {
-    assertThat(new AndroidPlugin().getExtensions().size()).isEqualTo(4);
+  @Attribute(required = false)
+  private Integer line;
+
+  public String getFile() {
+    return file;
+  }
+
+  public void setFile(String file) {
+    this.file = file;
+  }
+
+  public Integer getLine() {
+    return line;
+  }
+
+  public void setLine(Integer line) {
+    this.line = line;
   }
 }

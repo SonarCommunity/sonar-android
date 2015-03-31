@@ -1,6 +1,6 @@
 /*
  * SonarQube Android Plugin
- * Copyright (C) 2013 SonarSource and Jerome Van Der Linden, Stephane Nicolas, Florian Roncari, Thomas Bores
+ * Copyright (C) 2013 SonarSource and Jerome Van Der Linden, Stephane Nicolas, Florian Roncari, Thomas Bores, Jordan Hansen
  * dev@sonar.codehaus.org
  *
  * This program is free software; you can redistribute it and/or
@@ -27,7 +27,7 @@ public class AndroidLintVersionTest {
 
   @Test
   public void testGetVersion() {
-    assertThat(AndroidLintVersion.getVersion()).isEqualTo("22.2.0");
+    assertThat(AndroidLintVersion.getVersion()).isEqualTo("24.1.3");
 
     assertThat(AndroidLintVersion.readVersion("/foo/bar")).isEqualTo("");
   }

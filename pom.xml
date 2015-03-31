@@ -13,13 +13,19 @@
   <version>1.1-SNAPSHOT</version>
   <packaging>sonar-plugin</packaging>
 
+  <!--<packaging>pom</packaging>-->
+
+  <!--<modules>-->
+    <!--<module>lint-rules-gen</module>-->
+  <!--</modules>-->
+
   <name>SonarQube Android Plugin</name>
   <description>Enables analysis and reporting on Android projects.</description>
   <url>http://redirect.sonarsource.com/plugins/android.html</url>
 
   <inceptionYear>2013</inceptionYear>
   <organization>
-    <name>SonarSource and Jerome Van Der Linden, Stephane Nicolas, Florian Roncari, Thomas Bores</name>
+    <name>SonarSource and Jerome Van Der Linden, Stephane Nicolas, Florian Roncari, Thomas Bores, Jordan Hansen</name>
     <url>http://www.sonarsource.com</url>
   </organization>
   <licenses>
@@ -46,13 +52,17 @@
   </ciManagement>
 
   <properties>
-    <sonar.version>4.2</sonar.version>
-    <sonar-java.version>2.1</sonar-java.version>
+    <sonar.version>4.5.2</sonar.version>
+    <sonar-java.version>3.0</sonar-java.version>
     <!-- Configuration for sonar-packaging-maven-plugin -->
     <sonar.pluginClass>org.sonar.plugins.android.AndroidPlugin</sonar.pluginClass>
     <sonar.pluginName>Android</sonar.pluginName>
     <sonar.requirePlugins>java:${sonar-java.version}</sonar.requirePlugins>
-    <lint.version>22.2.0</lint.version>
+    <lint.version>24.1.3</lint.version>
+    <simplexml.version>2.7.1</simplexml.version>
+    <jsr305.version>3.0.0</jsr305.version>
+    <slf4j.version>1.7.10</slf4j.version>
+    <commons-io.version>2.4</commons-io.version>
     <maven.test.redirectTestOutputToFile>true</maven.test.redirectTestOutputToFile>
   </properties>
 
@@ -84,7 +94,6 @@
     <dependency>
       <groupId>com.android.tools.lint</groupId>
       <artifactId>lint</artifactId>
-      <version>${lint.version}</version>
     </dependency>
     <dependency>
       <groupId>org.projectlombok</groupId>
@@ -95,6 +104,10 @@
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
       <version>13.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.simpleframework</groupId>
+      <artifactId>simple-xml</artifactId>
     </dependency>
 
 
@@ -130,6 +143,51 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.android.tools.lint</groupId>
+        <artifactId>lint</artifactId>
+        <version>${lint.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.android.tools.lint</groupId>
+        <artifactId>lint-checks</artifactId>
+        <version>${lint.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.android.tools.lint</groupId>
+        <artifactId>lint-api</artifactId>
+        <version>${lint.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.simpleframework</groupId>
+        <artifactId>simple-xml</artifactId>
+        <version>${simplexml.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google.code.findbugs</groupId>
+        <artifactId>jsr305</artifactId>
+        <version>${jsr305.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>${slf4j.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-jdk14</artifactId>
+        <version>${slf4j.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>${commons-io.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <build>
     <resources>

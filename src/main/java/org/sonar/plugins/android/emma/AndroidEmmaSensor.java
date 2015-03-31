@@ -20,7 +20,6 @@
 
 package org.sonar.plugins.android.emma;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.CoverageExtension;
@@ -38,37 +37,33 @@ public class AndroidEmmaSensor implements Sensor, CoverageExtension {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(AndroidEmmaSensor.class);
   private final JavaResourceLocator javaResourceLocator;
-  private final Settings settings;
   private final FileSystem fileSystem;
-  private String emmaReportDirectory;
+  private final File emmaReportDirectory;
 
   public AndroidEmmaSensor(Settings settings, JavaResourceLocator javaResourceLocator, FileSystem fileSystem) {
     this.javaResourceLocator = javaResourceLocator;
-    this.settings = settings;
     this.fileSystem = fileSystem;
+    this.emmaReportDirectory = getFile(settings.getString(AndroidPlugin.EMMA_REPORT_DIR_PROPERTY));
   }
 
   @Override
   public boolean shouldExecuteOnProject(Project project) {
-    emmaReportDirectory = settings.getString(AndroidPlugin.EMMA_REPORT_DIR_PROPERTY);
-
-    return !StringUtils.isEmpty(emmaReportDirectory) && fileSystem.hasFiles(fileSystem.predicates().hasLanguage("java"));
+    return fileSystem.hasFiles(fileSystem.predicates().hasLanguage("java"));
   }
 
   @Override
   public void analyse(Project project, SensorContext context) {
-    File reportsPath = project.getFileSystem().resolvePath(emmaReportDirectory);
-    if (reportsPath == null) {
+    if (emmaReportDirectory == null) {
       LOGGER.warn("Directory {} not found on file system", emmaReportDirectory);
       return;
     }
-    if (!reportsPath.exists() || !reportsPath.isDirectory()) {
-      LOGGER.warn("Emma reports not found in {}", reportsPath);
+    if (!emmaReportDirectory.exists() || !emmaReportDirectory.isDirectory()) {
+      LOGGER.warn("Emma reports not found in {}", emmaReportDirectory);
       return;
     }
 
-    LOGGER.info("Parse reports: " + reportsPath);
-    new AndroidEmmaProcessor(reportsPath, javaResourceLocator, context).process();
+    LOGGER.info("Parse reports: " + emmaReportDirectory.getPath());
+    new AndroidEmmaProcessor(emmaReportDirectory, javaResourceLocator, context).process();
   }
 
   @Override
@@ -76,4 +71,16 @@ public class AndroidEmmaSensor implements Sensor, CoverageExtension {
     return getClass().getSimpleName();
   }
 
+  private File getFile(String path) {
+    try {
+      File file = new File(path);
+      if (!file.isAbsolute()) {
+        file = new File(fileSystem.baseDir(), path).getCanonicalFile();
+      }
+      return file;
+    } catch (Exception e) {
+      LOGGER.warn("Unable to resolve path", e);
+    }
+    return null;
+  }
 }

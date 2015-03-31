@@ -1,5 +1,0 @@
-<p>Checks that LinearLayouts with multiple children set the orientation</p>
-
-<p>The default orientation of a LinearLayout is horizontal. It's pretty easy to believe that the layout is vertical, add multiple children to it, and wonder why only the first child is visible (when the subsequent children are off screen to the right). This lint rule helps pinpoint this issue by warning whenever a LinearLayout is used with an implicit orientation and multiple children.<br/>
-<br/>
-It also checks for empty LinearLayouts without an <code>orientation</code> attribute that also defines an <code>id</code> attribute. This catches the scenarios where children will be added to the <code>LinearLayout</code> dynamically. </p>

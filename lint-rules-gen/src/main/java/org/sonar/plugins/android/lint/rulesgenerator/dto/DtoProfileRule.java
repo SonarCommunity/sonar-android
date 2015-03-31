@@ -1,6 +1,6 @@
 /*
- * SonarQube Android Plugin
- * Copyright (C) 2013 SonarSource and Jerome Van Der Linden, Stephane Nicolas, Florian Roncari, Thomas Bores, Jordan Hansen
+ * SonarQube Android Plugin Rules Generator
+ * Copyright (C) 2015 SonarSource and Jordan Hansen
  * dev@sonar.codehaus.org
  *
  * This program is free software; you can redistribute it and/or
@@ -17,16 +17,31 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.plugins.android;
+package org.sonar.plugins.android.lint.rulesgenerator.dto;
 
-import org.junit.Test;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 
-import static org.fest.assertions.Assertions.assertThat;
+@Root(name = "rule")
+public class DtoProfileRule {
+  @Element
+  private String repositoryKey;
+  @Element
+  private String key;
 
-public class AndroidPluginTest {
+  public String getRepositoryKey() {
+    return repositoryKey;
+  }
 
-  @Test
-  public void testGetExtensions() {
-    assertThat(new AndroidPlugin().getExtensions().size()).isEqualTo(4);
+  public void setRepositoryKey(String repositoryKey) {
+    this.repositoryKey = repositoryKey;
+  }
+
+  public String getKey() {
+    return key;
+  }
+
+  public void setKey(String key) {
+    this.key = key;
   }
 }

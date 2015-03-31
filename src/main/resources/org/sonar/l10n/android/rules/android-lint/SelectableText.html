@@ -1,5 +1,0 @@
-<p>Looks for TextViews which should probably allow their text to be selected</p>
-
-<p>If a <code>&lt;TextView></code> is used to display data, the user might want to copy that data and paste it elsewhere. To allow this, the <code>&lt;TextView></code> should specify <code>android:textIsSelectable="true"</code>.<br/>
-<br/>
-This lint check looks for TextViews which are likely to be displaying data: views whose text is set dynamically. This value will be ignored on platforms older than API 11, so it is okay to set it regardless of your <code>minSdkVersion</code>.</p>

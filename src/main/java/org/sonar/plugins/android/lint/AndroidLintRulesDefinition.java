@@ -19,42 +19,37 @@
  */
 package org.sonar.plugins.android.lint;
 
-import com.google.common.annotations.VisibleForTesting;
 import org.apache.commons.io.IOUtils;
-import org.slf4j.LoggerFactory;
+import org.sonar.api.server.rule.RulesDefinition;
+import org.sonar.api.server.rule.RulesDefinitionXmlLoader;
+import org.sonar.plugins.java.Java;
 
 import java.io.InputStream;
-import java.util.Properties;
+import java.io.InputStreamReader;
 
-public enum AndroidLintVersion {
-  INSTANCE;
+public class AndroidLintRulesDefinition implements RulesDefinition {
 
-  private static final String PROPERTIES_PATH = "/org/sonar/plugins/android/lint/android-plugin.properties";
-  private String version;
+  public static final String REPOSITORY_KEY = "android-lint";
+  public static final String REPOSITORY_NAME = "Android Lint";
+  public static final String RULES_XML_PATH = "/org/sonar/plugins/android/lint/rules.xml";
 
-  private AndroidLintVersion() {
-    this.version = readVersion(PROPERTIES_PATH);
+
+  private RulesDefinitionXmlLoader xmlLoader;
+
+  public AndroidLintRulesDefinition(RulesDefinitionXmlLoader xmlLoader) {
+    this.xmlLoader = xmlLoader;
   }
 
-  public static String getVersion() {
-    return INSTANCE.version;
-  }
-
-
-  @VisibleForTesting
-  static String readVersion(String propertyPath) {
-    InputStream input = AndroidLintVersion.class.getResourceAsStream(propertyPath);
+  @Override
+  public void define(Context context) {
+    NewRepository repository = context.createRepository(REPOSITORY_KEY, Java.KEY).setName(REPOSITORY_NAME);
+    InputStream inputStream = getClass().getResourceAsStream(RULES_XML_PATH);
+    InputStreamReader reader = new InputStreamReader(inputStream);
     try {
-      Properties properties = new Properties();
-      properties.load(input);
-      return properties.getProperty("lint.version");
-
-    } catch (Exception e) {
-      LoggerFactory.getLogger(AndroidLintVersion.class).warn("Can not load the Android Lint version from the file " + propertyPath);
-      return "";
-
+      xmlLoader.load(repository, reader);
+      repository.done();
     } finally {
-      IOUtils.closeQuietly(input);
+      IOUtils.closeQuietly(reader);
     }
   }
 }

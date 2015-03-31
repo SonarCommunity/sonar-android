@@ -1,9 +1,0 @@
-<p>Checks for quantity string translations which are not used in this language</p>
-
-<p>Android defines a number of different quantity strings, such as <code>zero</code>, <code>one</code>, <code>few</code> and <code>many</code>. However, many languages do not distinguish grammatically between all these different quantities.<br/>
-<br/>
-This lint check looks at the quantity strings defined for each translation and flags any quantity strings that are unused (because the language does not make that quantity distinction, and Android will therefore not look it up.).<br/>
-For example, in Chinese, only the <code>other</code> quantity is used, so even if you provide translations for <code>zero</code> and <code>one</code>, these strings will <b>not</b> be returned when <code>getQuantityString()</code> is called, even with <code>0</code> or <code>1</code>.</p>
-
-<ul>
-<li>http://developer.android.com/guide/topics/resources/string-resource.html#Plurals</li></ul>
