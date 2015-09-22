@@ -1,160 +1,199 @@
 <lint>
-   <issue id="AdapterViewChildren" severity="Error" />
-   <issue id="AllowBackup" severity="Warning" />
-   <issue id="AlwaysShowAction" severity="Warning" />
-   <issue id="BackButton" severity="Warning" />
-   <issue id="ButtonCase" severity="Warning" />
-   <issue id="ButtonOrder" severity="Error" />
-   <issue id="ButtonStyle" severity="Warning" />
-   <issue id="CommitPrefEdits" severity="Warning" />
-   <issue id="CommitTransaction" severity="Error" />
-   <issue id="ContentDescription" severity="Warning" />
-   <issue id="CutPasteId" severity="Warning" />
-   <issue id="DalvikOverride" severity="Error" />
-   <issue id="DefaultLocale" severity="Warning" />
-   <issue id="Deprecated" severity="Warning" />
-   <issue id="DeviceAdmin" severity="Error" />
-   <issue id="DisableBaselineAlignment" severity="Warning" />
-   <issue id="DrawAllocation" severity="Error" />
-   <issue id="DuplicateActivity" severity="Error" />
-   <issue id="DuplicateDefinition" severity="Error" />
-   <issue id="DuplicateIds" severity="Error" />
-   <issue id="DuplicateIncludedIds" severity="Warning" />
-   <issue id="DuplicateUsesFeature" severity="Warning" />
-   <issue id="EasterEgg" severity="Warning" />
-   <issue id="EnforceUTF8" severity="Warning" />
-   <issue id="ExportedContentProvider" severity="Warning" />
-   <issue id="ExportedReceiver" severity="Warning" />
-   <issue id="ExportedService" severity="Warning" />
-   <issue id="ExtraText" severity="Warning" />
+   <issue id="AaptCrash" severity="Fatal"/>
+   <issue id="AccidentalOctal" severity="Error"/>
+   <issue id="AdapterViewChildren" severity="Error"/>
+   <issue id="AddJavascriptInterface" severity="Error"/>
+   <issue id="AllowBackup" severity="Warning"/>
+   <issue id="AlwaysShowAction" severity="Warning"/>
+   <issue id="AndroidGradlePluginVersion" severity="Error"/>
+   <issue id="AppCompatMethod" severity="Warning"/>
+   <issue id="AppCompatResource" severity="Error"/>
+   <issue id="Assert" severity="Warning"/>
+   <issue id="BackButton" severity="Warning"/>
+   <issue id="ButtonCase" severity="Warning"/>
+   <issue id="ButtonOrder" severity="Error"/>
+   <issue id="ButtonStyle" severity="Warning"/>
+   <issue id="ByteOrderMark" severity="Fatal"/>
+   <issue id="ClickableViewAccessibility" severity="Warning"/>
+   <issue id="CommitPrefEdits" severity="Warning"/>
+   <issue id="CommitTransaction" severity="Error"/>
+   <issue id="ContentDescription" severity="Warning"/>
+   <issue id="CutPasteId" severity="Warning"/>
+   <issue id="DalvikOverride" severity="Error"/>
+   <issue id="DefaultLocale" severity="Warning"/>
+   <issue id="Deprecated" severity="Warning"/>
+   <issue id="DeviceAdmin" severity="Error"/>
+   <issue id="DisableBaselineAlignment" severity="Warning"/>
+   <issue id="DrawAllocation" severity="Error"/>
+   <issue id="DuplicateActivity" severity="Fatal"/>
+   <issue id="DuplicateDefinition" severity="Error"/>
+   <issue id="DuplicateIds" severity="Fatal"/>
+   <issue id="DuplicateIncludedIds" severity="Warning"/>
+   <issue id="DuplicateUsesFeature" severity="Warning"/>
+   <issue id="EasterEgg" severity="Warning"/>
+   <issue id="EnforceUTF8" severity="Fatal"/>
+   <issue id="ExportedContentProvider" severity="Warning"/>
+   <issue id="ExportedPreferenceActivity" severity="Error"/>
+   <issue id="ExportedReceiver" severity="Warning"/>
+   <issue id="ExportedService" severity="Warning"/>
+   <issue id="ExtraText" severity="Warning"/>
    <issue id="ExtraTranslation" severity="Fatal"/>
-   <issue id="FieldGetter" severity="Warning" />
-   <issue id="FloatMath" severity="Warning" />
-   <issue id="GifUsage" severity="Warning" />
-   <issue id="GrantAllUris" severity="Error" />
+   <issue id="FieldGetter" severity="Warning"/>
+   <issue id="FloatMath" severity="Warning"/>
+   <issue id="GetInstance" severity="Error"/>
+   <issue id="GifUsage" severity="Warning"/>
+   <issue id="GradleCompatible" severity="Error"/>
+   <issue id="GradleDependency" severity="Warning"/>
+   <issue id="GradleDeprecated" severity="Warning"/>
+   <issue id="GradleDynamicVersion" severity="Warning"/>
+   <issue id="GradleGetter" severity="Error"/>
+   <issue id="GradleIdeError" severity="Error"/>
+   <issue id="GradleOverrides" severity="Warning"/>
+   <issue id="GradlePath" severity="Warning"/>
+   <issue id="GrantAllUris" severity="Error"/>
    <issue id="GridLayout" severity="Fatal"/>
-   <issue id="HandlerLeak" severity="Warning" />
-   <issue id="HardcodedDebugMode" severity="Warning" />
-   <issue id="HardcodedText" severity="Warning" />
-   <issue id="IconColors" severity="Warning" />
-   <issue id="IconDensities" severity="Warning" />
-   <issue id="IconDipSize" severity="Warning" />
-   <issue id="IconDuplicates" severity="Warning" />
-   <issue id="IconDuplicatesConfig" severity="Warning" />
-   <issue id="IconExpectedSize" severity="Warning" />
-   <issue id="IconExtension" severity="Warning" />
-   <issue id="IconLauncherShape" severity="Warning" />
-   <issue id="IconLocation" severity="Warning" />
-   <issue id="IconMissingDensityFolder" severity="Warning" />
-   <issue id="IconMixedNinePatch" severity="Warning" />
-   <issue id="IconNoDpi" severity="Error" />
-   <issue id="IconXmlAndPng" severity="Error" />
-   <issue id="IllegalResourceRef" severity="Error" />
-   <issue id="InOrMmUsage" severity="Warning" />
-   <issue id="InconsistentArrays" severity="Error" />
-   <issue id="InconsistentLayout" severity="Warning" />
-   <issue id="InefficientWeight" severity="Warning" />
-   <issue id="InlinedApi" severity="Warning" />
-   <issue id="InnerclassSeparator" severity="Warning" />
-   <issue id="Instantiatable" severity="Warning" />
-   <issue id="InvalidId" severity="Error" />
-   <issue id="InvalidPackage" severity="Error" />
-   <issue id="JavascriptInterface" severity="Error" />
-   <issue id="LabelFor" severity="Warning" />
-   <issue id="LibraryCustomView" severity="Error" />
-   <issue id="LocalSuppress" severity="Error" />
-   <issue id="MangledCRLF" severity="Error" />
-   <issue id="ManifestOrder" severity="Warning" />
-   <issue id="ManifestTypo" severity="Warning" />
-   <issue id="MenuTitle" severity="Warning" />
-   <issue id="MergeRootFrame" severity="Warning" />
-   <issue id="MissingApplicationIcon" severity="Warning" />
-   <issue id="MissingId" severity="Warning" />
-   <issue id="MissingPrefix" severity="Error" />
-   <issue id="MissingQuantity" severity="Error" />
-   <issue id="MissingRegistered" severity="Error" />
-   <issue id="MissingSuperCall" severity="Error" />
+   <issue id="HandlerLeak" severity="Warning"/>
+   <issue id="HardcodedDebugMode" severity="Fatal"/>
+   <issue id="HardcodedText" severity="Warning"/>
+   <issue id="IconColors" severity="Warning"/>
+   <issue id="IconDensities" severity="Warning"/>
+   <issue id="IconDipSize" severity="Warning"/>
+   <issue id="IconDuplicates" severity="Warning"/>
+   <issue id="IconDuplicatesConfig" severity="Warning"/>
+   <issue id="IconExpectedSize" severity="Warning"/>
+   <issue id="IconExtension" severity="Warning"/>
+   <issue id="IconLauncherShape" severity="Warning"/>
+   <issue id="IconLocation" severity="Warning"/>
+   <issue id="IconMissingDensityFolder" severity="Warning"/>
+   <issue id="IconMixedNinePatch" severity="Warning"/>
+   <issue id="IconNoDpi" severity="Error"/>
+   <issue id="IconXmlAndPng" severity="Error"/>
+   <issue id="IllegalResourceRef" severity="Error"/>
+   <issue id="ImpliedQuantity" severity="Error"/>
+   <issue id="ImproperProjectLevelStatement" severity="Warning"/>
+   <issue id="InOrMmUsage" severity="Warning"/>
+   <issue id="IncludeLayoutParam" severity="Error"/>
+   <issue id="InconsistentArrays" severity="Error"/>
+   <issue id="InconsistentLayout" severity="Warning"/>
+   <issue id="InefficientWeight" severity="Warning"/>
+   <issue id="InflateParams" severity="Warning"/>
+   <issue id="InlinedApi" severity="Warning"/>
+   <issue id="InnerclassSeparator" severity="Warning"/>
+   <issue id="Instantiatable" severity="Fatal"/>
+   <issue id="InvalidId" severity="Fatal"/>
+   <issue id="InvalidPackage" severity="Error"/>
+   <issue id="JavascriptInterface" severity="Error"/>
+   <issue id="LabelFor" severity="Warning"/>
+   <issue id="LibraryCustomView" severity="Fatal"/>
+   <issue id="LocalSuppress" severity="Error"/>
+   <issue id="LocaleFolder" severity="Warning"/>
+   <issue id="MangledCRLF" severity="Error"/>
+   <issue id="ManifestOrder" severity="Warning"/>
+   <issue id="ManifestTypo" severity="Fatal"/>
+   <issue id="MenuTitle" severity="Error"/>
+   <issue id="MergeRootFrame" severity="Warning"/>
+   <issue id="MisplacedStatement" severity="Warning"/>
+   <issue id="MissingApplicationIcon" severity="Warning"/>
+   <issue id="MissingId" severity="Warning"/>
+   <issue id="MissingPrefix" severity="Error"/>
+   <issue id="MissingQuantity" severity="Error"/>
+   <issue id="MissingRegistered" severity="Error"/>
+   <issue id="MissingSuperCall" severity="Error"/>
    <issue id="MissingTranslation" severity="Fatal"/>
-   <issue id="MissingVersion" severity="Warning" />
+   <issue id="MissingVersion" severity="Warning"/>
+   <issue id="MockLocation" severity="Fatal"/>
    <issue id="MultipleUsesSdk" severity="Fatal"/>
-   <issue id="NamespaceTypo" severity="Error" />
-   <issue id="NestedScrolling" severity="Error" />
-   <issue id="NestedWeights" severity="Warning" />
-   <issue id="NewApi" severity="Error" />
-   <issue id="NotSibling" severity="Error" />
-   <issue id="ObsoleteLayoutParam" severity="Warning" />
-   <issue id="OldTargetApi" severity="Warning" />
-   <issue id="OnClick" severity="Error" />
-   <issue id="Orientation" severity="Error" />
-   <issue id="Overdraw" severity="Warning" />
-   <issue id="Override" severity="Error" />
-   <issue id="PackagedPrivateKey" severity="Error" />
-   <issue id="ParcelCreator" severity="Warning" />
+   <issue id="NamespaceTypo" severity="Fatal"/>
+   <issue id="NestedScrolling" severity="Error"/>
+   <issue id="NestedWeights" severity="Warning"/>
+   <issue id="NewApi" severity="Error"/>
+   <issue id="NewerVersionAvailable" severity="Warning"/>
+   <issue id="NfcTechWhitespace" severity="Fatal"/>
+   <issue id="NotSibling" severity="Fatal"/>
+   <issue id="ObsoleteLayoutParam" severity="Warning"/>
+   <issue id="OldTargetApi" severity="Warning"/>
+   <issue id="OnClick" severity="Error"/>
+   <issue id="Orientation" severity="Error"/>
+   <issue id="Overdraw" severity="Warning"/>
+   <issue id="Override" severity="Error"/>
+   <issue id="PackagedPrivateKey" severity="Fatal"/>
+   <issue id="ParcelCreator" severity="Warning"/>
    <issue id="PrivateResource" severity="Fatal"/>
    <issue id="Proguard" severity="Fatal"/>
-   <issue id="ProguardSplit" severity="Warning" />
-   <issue id="ProtectedPermissions" severity="Error" />
-   <issue id="PxUsage" severity="Warning" />
-   <issue id="Recycle" severity="Error" />
-   <issue id="Registered" severity="Warning" />
-   <issue id="RequiredSize" severity="Error" />
-   <issue id="ResAuto" severity="Error" />
-   <issue id="ResourceAsColor" severity="Error" />
-   <issue id="RtlCompat" severity="Error" />
-   <issue id="RtlEnabled" severity="Warning" />
-   <issue id="RtlHardcoded" severity="Warning" />
-   <issue id="ScrollViewCount" severity="Error" />
-   <issue id="ScrollViewSize" severity="Error" />
-   <issue id="SdCardPath" severity="Warning" />
-   <issue id="SecureRandom" severity="Error" />
-   <issue id="SelectableText" severity="Error" />
-   <issue id="ServiceCast" severity="Error" />
-   <issue id="SetJavaScriptEnabled" severity="Warning" />
-   <issue id="ShowToast" severity="Warning" />
-   <issue id="SimpleDateFormat" severity="Warning" />
-   <issue id="SmallSp" severity="Warning" />
-   <issue id="SpUsage" severity="Warning" />
-   <issue id="StateListReachable" severity="Warning" />
-   <issue id="StopShip" severity="Error" />
-   <issue id="StringFormatCount" severity="Warning" />
-   <issue id="StringFormatInvalid" severity="Error" />
-   <issue id="StringFormatMatches" severity="Error" />
-   <issue id="StyleCycle" severity="Fatal"/>
-   <issue id="Suspicious0dp" severity="Error" />
-   <issue id="SuspiciousImport" severity="Error" />
-   <issue id="TextFields" severity="Warning" />
-   <issue id="TextViewEdits" severity="Error" />
-   <issue id="TooDeepLayout" severity="Warning" />
-   <issue id="TooManyViews" severity="Warning" />
-   <issue id="TypographyDashes" severity="Warning" />
-   <issue id="TypographyEllipsis" severity="Warning" />
-   <issue id="TypographyFractions" severity="Warning" />
-   <issue id="TypographyOther" severity="Warning" />
-   <issue id="TypographyQuotes" severity="Warning" />
-   <issue id="Typos" severity="Error" />
-   <issue id="UniquePermission" severity="Error" />
+   <issue id="ProguardSplit" severity="Warning"/>
+   <issue id="PropertyEscape" severity="Error"/>
+   <issue id="ProtectedPermissions" severity="Error"/>
+   <issue id="PxUsage" severity="Warning"/>
+   <issue id="Recycle" severity="Error"/>
+   <issue id="ReferenceType" severity="Fatal"/>
+   <issue id="Registered" severity="Warning"/>
+   <issue id="RequiredSize" severity="Error"/>
+   <issue id="ResAuto" severity="Fatal"/>
+   <issue id="ResourceAsColor" severity="Error"/>
+   <issue id="ResourceCycle" severity="Fatal"/>
+   <issue id="ResourceName" severity="Fatal"/>
+   <issue id="RtlCompat" severity="Error"/>
+   <issue id="RtlEnabled" severity="Warning"/>
+   <issue id="RtlHardcoded" severity="Warning"/>
+   <issue id="RtlSymmetry" severity="Error"/>
+   <issue id="ScrollViewCount" severity="Error"/>
+   <issue id="ScrollViewSize" severity="Error"/>
+   <issue id="SdCardPath" severity="Warning"/>
+   <issue id="SecureRandom" severity="Error"/>
+   <issue id="SelectableText" severity="Error"/>
+   <issue id="ServiceCast" severity="Fatal"/>
+   <issue id="SetJavaScriptEnabled" severity="Warning"/>
+   <issue id="ShowToast" severity="Warning"/>
+   <issue id="SignatureOrSystemPermissions" severity="Warning"/>
+   <issue id="SimpleDateFormat" severity="Warning"/>
+   <issue id="SmallSp" severity="Warning"/>
+   <issue id="SpUsage" severity="Warning"/>
+   <issue id="StateListReachable" severity="Warning"/>
+   <issue id="StopShip" severity="Error"/>
+   <issue id="StringFormatCount" severity="Warning"/>
+   <issue id="StringFormatInvalid" severity="Error"/>
+   <issue id="StringFormatMatches" severity="Error"/>
+   <issue id="StringShouldBeInt" severity="Error"/>
+   <issue id="Suspicious0dp" severity="Error"/>
+   <issue id="SuspiciousImport" severity="Error"/>
+   <issue id="TextFields" severity="Warning"/>
+   <issue id="TextViewEdits" severity="Error"/>
+   <issue id="TooDeepLayout" severity="Warning"/>
+   <issue id="TooManyViews" severity="Warning"/>
+   <issue id="TrulyRandom" severity="Error"/>
+   <issue id="TypographyDashes" severity="Warning"/>
+   <issue id="TypographyEllipsis" severity="Warning"/>
+   <issue id="TypographyFractions" severity="Warning"/>
+   <issue id="TypographyOther" severity="Warning"/>
+   <issue id="TypographyQuotes" severity="Warning"/>
+   <issue id="Typos" severity="Error"/>
+   <issue id="UniquePermission" severity="Fatal"/>
    <issue id="UnknownId" severity="Fatal"/>
-   <issue id="UnknownIdInLayout" severity="Warning" />
-   <issue id="UnlocalizedSms" severity="Warning" />
-   <issue id="UnusedIds" severity="Warning" />
-   <issue id="UnusedNamespace" severity="Warning" />
-   <issue id="UnusedQuantity" severity="Warning" />
-   <issue id="UnusedResources" severity="Warning" />
-   <issue id="UseCompoundDrawables" severity="Warning" />
-   <issue id="UseSparseArrays" severity="Warning" />
-   <issue id="UseValueOf" severity="Warning" />
-   <issue id="UselessLeaf" severity="Warning" />
-   <issue id="UselessParent" severity="Warning" />
-   <issue id="UsesMinSdkAttributes" severity="Error" />
-   <issue id="ValidFragment" severity="Error" />
-   <issue id="ViewConstructor" severity="Warning" />
-   <issue id="ViewTag" severity="Warning" />
-   <issue id="Wakelock" severity="Error" />
-   <issue id="WorldReadableFiles" severity="Warning" />
-   <issue id="WorldWriteableFiles" severity="Warning" />
-   <issue id="WrongCall" severity="Error" />
-   <issue id="WrongCase" severity="Error" />
-   <issue id="WrongFolder" severity="Error" />
+   <issue id="UnknownIdInLayout" severity="Warning"/>
+   <issue id="UnlocalizedSms" severity="Warning"/>
+   <issue id="UnusedAttribute" severity="Warning"/>
+   <issue id="UnusedIds" severity="Warning"/>
+   <issue id="UnusedNamespace" severity="Warning"/>
+   <issue id="UnusedQuantity" severity="Warning"/>
+   <issue id="UnusedResources" severity="Warning"/>
+   <issue id="UseCheckPermission" severity="Warning"/>
+   <issue id="UseCompoundDrawables" severity="Warning"/>
+   <issue id="UseSparseArrays" severity="Warning"/>
+   <issue id="UseValueOf" severity="Warning"/>
+   <issue id="UselessLeaf" severity="Warning"/>
+   <issue id="UselessParent" severity="Warning"/>
+   <issue id="UsesMinSdkAttributes" severity="Error"/>
+   <issue id="ValidFragment" severity="Fatal"/>
+   <issue id="ViewConstructor" severity="Warning"/>
+   <issue id="ViewHolder" severity="Warning"/>
+   <issue id="ViewTag" severity="Warning"/>
+   <issue id="Wakelock" severity="Error"/>
+   <issue id="WebViewLayout" severity="Error"/>
+   <issue id="WorldReadableFiles" severity="Warning"/>
+   <issue id="WorldWriteableFiles" severity="Warning"/>
+   <issue id="WrongCall" severity="Fatal"/>
+   <issue id="WrongCase" severity="Fatal"/>
+   <issue id="WrongFolder" severity="Fatal"/>
    <issue id="WrongManifestParent" severity="Fatal"/>
-   <issue id="WrongViewCast" severity="Error" />
+   <issue id="WrongViewCast" severity="Fatal"/>
 </lint>

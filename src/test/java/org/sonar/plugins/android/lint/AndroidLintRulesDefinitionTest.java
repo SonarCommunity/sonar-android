@@ -43,7 +43,7 @@ import static org.fest.assertions.Assertions.assertThat;
  * @author Florian Roncari
  */
 public class AndroidLintRulesDefinitionTest {
-
+    private final static int RULES_COUNT = 197;
   private static final Map<Category, String> SQALE_BY_LINT_CATEGORY = ImmutableMap.<Category, String>builder()
       .put(Category.SECURITY, SubCharacteristics.SECURITY_FEATURES)
       .put(Category.CORRECTNESS, SubCharacteristics.INSTRUCTION_RELIABILITY)
@@ -64,7 +64,7 @@ public class AndroidLintRulesDefinitionTest {
     rulesDefinition.define(context);
     RulesDefinition.Repository repository = context.repository(AndroidLintRulesDefinition.REPOSITORY_KEY);
     List<RulesDefinition.Rule> rules = repository.rules();
-    assertThat(rules.size()).isEqualTo(158);
+    assertThat(rules.size()).isEqualTo(RULES_COUNT);
 
     List<String> errorMessageOfMissingSqale = Lists.newArrayList();
     IssueRegistry registry = new BuiltinIssueRegistry();

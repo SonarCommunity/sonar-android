@@ -32,11 +32,27 @@
       </rule>
       <rule>
          <repositoryKey>android-lint</repositoryKey>
+         <key>AaptCrash</key>
+      </rule>
+      <rule>
+         <repositoryKey>android-lint</repositoryKey>
+         <key>AndroidGradlePluginVersion</key>
+      </rule>
+      <rule>
+         <repositoryKey>android-lint</repositoryKey>
+         <key>GradleCompatible</key>
+      </rule>
+      <rule>
+         <repositoryKey>android-lint</repositoryKey>
          <key>IllegalResourceRef</key>
       </rule>
       <rule>
          <repositoryKey>android-lint</repositoryKey>
          <key>MissingRegistered</key>
+      </rule>
+      <rule>
+         <repositoryKey>android-lint</repositoryKey>
+         <key>MockLocation</key>
       </rule>
       <rule>
          <repositoryKey>android-lint</repositoryKey>
@@ -48,19 +64,27 @@
       </rule>
       <rule>
          <repositoryKey>android-lint</repositoryKey>
+         <key>ReferenceType</key>
+      </rule>
+      <rule>
+         <repositoryKey>android-lint</repositoryKey>
+         <key>ResourceCycle</key>
+      </rule>
+      <rule>
+         <repositoryKey>android-lint</repositoryKey>
+         <key>ResourceName</key>
+      </rule>
+      <rule>
+         <repositoryKey>android-lint</repositoryKey>
          <key>ScrollViewCount</key>
       </rule>
       <rule>
          <repositoryKey>android-lint</repositoryKey>
-         <key>StyleCycle</key>
+         <key>StringShouldBeInt</key>
       </rule>
       <rule>
          <repositoryKey>android-lint</repositoryKey>
          <key>UnknownId</key>
-      </rule>
-      <rule>
-         <repositoryKey>android-lint</repositoryKey>
-         <key>WrongCase</key>
       </rule>
       <rule>
          <repositoryKey>android-lint</repositoryKey>
@@ -104,6 +128,18 @@
       </rule>
       <rule>
          <repositoryKey>android-lint</repositoryKey>
+         <key>WebViewLayout</key>
+      </rule>
+      <rule>
+         <repositoryKey>android-lint</repositoryKey>
+         <key>AppCompatMethod</key>
+      </rule>
+      <rule>
+         <repositoryKey>android-lint</repositoryKey>
+         <key>Assert</key>
+      </rule>
+      <rule>
+         <repositoryKey>android-lint</repositoryKey>
          <key>CommitPrefEdits</key>
       </rule>
       <rule>
@@ -121,6 +157,14 @@
       <rule>
          <repositoryKey>android-lint</repositoryKey>
          <key>DuplicateIncludedIds</key>
+      </rule>
+      <rule>
+         <repositoryKey>android-lint</repositoryKey>
+         <key>GradleDeprecated</key>
+      </rule>
+      <rule>
+         <repositoryKey>android-lint</repositoryKey>
+         <key>GradleGetter</key>
       </rule>
       <rule>
          <repositoryKey>android-lint</repositoryKey>
@@ -148,6 +192,10 @@
       </rule>
       <rule>
          <repositoryKey>android-lint</repositoryKey>
+         <key>LocaleFolder</key>
+      </rule>
+      <rule>
+         <repositoryKey>android-lint</repositoryKey>
          <key>MissingPrefix</key>
       </rule>
       <rule>
@@ -169,6 +217,10 @@
       <rule>
          <repositoryKey>android-lint</repositoryKey>
          <key>Override</key>
+      </rule>
+      <rule>
+         <repositoryKey>android-lint</repositoryKey>
+         <key>PropertyEscape</key>
       </rule>
       <rule>
          <repositoryKey>android-lint</repositoryKey>
@@ -200,6 +252,10 @@
       </rule>
       <rule>
          <repositoryKey>android-lint</repositoryKey>
+         <key>UnusedAttribute</key>
+      </rule>
+      <rule>
+         <repositoryKey>android-lint</repositoryKey>
          <key>ValidFragment</key>
       </rule>
       <rule>
@@ -220,6 +276,14 @@
       </rule>
       <rule>
          <repositoryKey>android-lint</repositoryKey>
+         <key>IncludeLayoutParam</key>
+      </rule>
+      <rule>
+         <repositoryKey>android-lint</repositoryKey>
+         <key>InflateParams</key>
+      </rule>
+      <rule>
+         <repositoryKey>android-lint</repositoryKey>
          <key>ManifestOrder</key>
       </rule>
       <rule>
@@ -229,6 +293,10 @@
       <rule>
          <repositoryKey>android-lint</repositoryKey>
          <key>MissingId</key>
+      </rule>
+      <rule>
+         <repositoryKey>android-lint</repositoryKey>
+         <key>NfcTechWhitespace</key>
       </rule>
       <rule>
          <repositoryKey>android-lint</repositoryKey>
@@ -248,6 +316,22 @@
       </rule>
       <rule>
          <repositoryKey>android-lint</repositoryKey>
+         <key>GradleDependency</key>
+      </rule>
+      <rule>
+         <repositoryKey>android-lint</repositoryKey>
+         <key>GradleIdeError</key>
+      </rule>
+      <rule>
+         <repositoryKey>android-lint</repositoryKey>
+         <key>GradleOverrides</key>
+      </rule>
+      <rule>
+         <repositoryKey>android-lint</repositoryKey>
+         <key>GradlePath</key>
+      </rule>
+      <rule>
+         <repositoryKey>android-lint</repositoryKey>
          <key>GridLayout</key>
       </rule>
       <rule>
@@ -257,6 +341,10 @@
       <rule>
          <repositoryKey>android-lint</repositoryKey>
          <key>RequiredSize</key>
+      </rule>
+      <rule>
+         <repositoryKey>android-lint</repositoryKey>
+         <key>WrongCase</key>
       </rule>
       <rule>
          <repositoryKey>android-lint</repositoryKey>
@@ -284,11 +372,23 @@
       </rule>
       <rule>
          <repositoryKey>android-lint</repositoryKey>
+         <key>AccidentalOctal</key>
+      </rule>
+      <rule>
+         <repositoryKey>android-lint</repositoryKey>
          <key>Deprecated</key>
       </rule>
       <rule>
          <repositoryKey>android-lint</repositoryKey>
+         <key>ImproperProjectLevelStatement</key>
+      </rule>
+      <rule>
+         <repositoryKey>android-lint</repositoryKey>
          <key>MangledCRLF</key>
+      </rule>
+      <rule>
+         <repositoryKey>android-lint</repositoryKey>
+         <key>MisplacedStatement</key>
       </rule>
       <rule>
          <repositoryKey>android-lint</repositoryKey>
@@ -328,11 +428,31 @@
       </rule>
       <rule>
          <repositoryKey>android-lint</repositoryKey>
+         <key>ImpliedQuantity</key>
+      </rule>
+      <rule>
+         <repositoryKey>android-lint</repositoryKey>
          <key>StringFormatCount</key>
       </rule>
       <rule>
          <repositoryKey>android-lint</repositoryKey>
          <key>UnusedQuantity</key>
+      </rule>
+      <rule>
+         <repositoryKey>android-lint</repositoryKey>
+         <key>AddJavascriptInterface</key>
+      </rule>
+      <rule>
+         <repositoryKey>android-lint</repositoryKey>
+         <key>GetInstance</key>
+      </rule>
+      <rule>
+         <repositoryKey>android-lint</repositoryKey>
+         <key>TrulyRandom</key>
+      </rule>
+      <rule>
+         <repositoryKey>android-lint</repositoryKey>
+         <key>ExportedPreferenceActivity</key>
       </rule>
       <rule>
          <repositoryKey>android-lint</repositoryKey>
@@ -352,6 +472,10 @@
       </rule>
       <rule>
          <repositoryKey>android-lint</repositoryKey>
+         <key>UseCheckPermission</key>
+      </rule>
+      <rule>
+         <repositoryKey>android-lint</repositoryKey>
          <key>ExportedContentProvider</key>
       </rule>
       <rule>
@@ -365,6 +489,10 @@
       <rule>
          <repositoryKey>android-lint</repositoryKey>
          <key>HardcodedDebugMode</key>
+      </rule>
+      <rule>
+         <repositoryKey>android-lint</repositoryKey>
+         <key>SignatureOrSystemPermissions</key>
       </rule>
       <rule>
          <repositoryKey>android-lint</repositoryKey>
@@ -405,6 +533,10 @@
       <rule>
          <repositoryKey>android-lint</repositoryKey>
          <key>ViewTag</key>
+      </rule>
+      <rule>
+         <repositoryKey>android-lint</repositoryKey>
+         <key>ViewHolder</key>
       </rule>
       <rule>
          <repositoryKey>android-lint</repositoryKey>
@@ -544,6 +676,10 @@
       </rule>
       <rule>
          <repositoryKey>android-lint</repositoryKey>
+         <key>AppCompatResource</key>
+      </rule>
+      <rule>
+         <repositoryKey>android-lint</repositoryKey>
          <key>ButtonStyle</key>
       </rule>
       <rule>
@@ -576,6 +712,10 @@
       </rule>
       <rule>
          <repositoryKey>android-lint</repositoryKey>
+         <key>ClickableViewAccessibility</key>
+      </rule>
+      <rule>
+         <repositoryKey>android-lint</repositoryKey>
          <key>ContentDescription</key>
       </rule>
       <rule>
@@ -584,11 +724,15 @@
       </rule>
       <rule>
          <repositoryKey>android-lint</repositoryKey>
-         <key>HardcodedText</key>
+         <key>ByteOrderMark</key>
       </rule>
       <rule>
          <repositoryKey>android-lint</repositoryKey>
          <key>EnforceUTF8</key>
+      </rule>
+      <rule>
+         <repositoryKey>android-lint</repositoryKey>
+         <key>HardcodedText</key>
       </rule>
    </rules>
 </Profile>

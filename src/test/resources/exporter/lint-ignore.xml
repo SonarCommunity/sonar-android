@@ -1,11 +1,20 @@
 <lint>
+   <issue id="AaptCrash" severity="Ignore"/>
+   <issue id="AccidentalOctal" severity="Ignore"/>
    <issue id="AdapterViewChildren" severity="Ignore"/>
+   <issue id="AddJavascriptInterface" severity="Ignore"/>
    <issue id="AllowBackup" severity="Ignore"/>
    <issue id="AlwaysShowAction" severity="Ignore"/>
+   <issue id="AndroidGradlePluginVersion" severity="Ignore"/>
+   <issue id="AppCompatMethod" severity="Ignore"/>
+   <issue id="AppCompatResource" severity="Ignore"/>
+   <issue id="Assert" severity="Ignore"/>
    <issue id="BackButton" severity="Ignore"/>
    <issue id="ButtonCase" severity="Ignore"/>
    <issue id="ButtonOrder" severity="Ignore"/>
    <issue id="ButtonStyle" severity="Ignore"/>
+   <issue id="ByteOrderMark" severity="Ignore"/>
+   <issue id="ClickableViewAccessibility" severity="Ignore"/>
    <issue id="CommitPrefEdits" severity="Ignore"/>
    <issue id="CommitTransaction" severity="Ignore"/>
    <issue id="ContentDescription" severity="Ignore"/>
@@ -24,13 +33,23 @@
    <issue id="EasterEgg" severity="Ignore"/>
    <issue id="EnforceUTF8" severity="Ignore"/>
    <issue id="ExportedContentProvider" severity="Ignore"/>
+   <issue id="ExportedPreferenceActivity" severity="Ignore"/>
    <issue id="ExportedReceiver" severity="Ignore"/>
    <issue id="ExportedService" severity="Ignore"/>
    <issue id="ExtraText" severity="Ignore"/>
    <issue id="ExtraTranslation" severity="Ignore"/>
    <issue id="FieldGetter" severity="Ignore"/>
    <issue id="FloatMath" severity="Ignore"/>
+   <issue id="GetInstance" severity="Ignore"/>
    <issue id="GifUsage" severity="Ignore"/>
+   <issue id="GradleCompatible" severity="Ignore"/>
+   <issue id="GradleDependency" severity="Ignore"/>
+   <issue id="GradleDeprecated" severity="Ignore"/>
+   <issue id="GradleDynamicVersion" severity="Ignore"/>
+   <issue id="GradleGetter" severity="Ignore"/>
+   <issue id="GradleIdeError" severity="Ignore"/>
+   <issue id="GradleOverrides" severity="Ignore"/>
+   <issue id="GradlePath" severity="Ignore"/>
    <issue id="GrantAllUris" severity="Ignore"/>
    <issue id="GridLayout" severity="Ignore"/>
    <issue id="HandlerLeak" severity="Ignore"/>
@@ -50,10 +69,14 @@
    <issue id="IconNoDpi" severity="Ignore"/>
    <issue id="IconXmlAndPng" severity="Ignore"/>
    <issue id="IllegalResourceRef" severity="Ignore"/>
+   <issue id="ImpliedQuantity" severity="Ignore"/>
+   <issue id="ImproperProjectLevelStatement" severity="Ignore"/>
    <issue id="InOrMmUsage" severity="Ignore"/>
+   <issue id="IncludeLayoutParam" severity="Ignore"/>
    <issue id="InconsistentArrays" severity="Ignore"/>
    <issue id="InconsistentLayout" severity="Ignore"/>
    <issue id="InefficientWeight" severity="Ignore"/>
+   <issue id="InflateParams" severity="Ignore"/>
    <issue id="InlinedApi" severity="Ignore"/>
    <issue id="InnerclassSeparator" severity="Ignore"/>
    <issue id="Instantiatable" severity="Ignore"/>
@@ -63,11 +86,13 @@
    <issue id="LabelFor" severity="Ignore"/>
    <issue id="LibraryCustomView" severity="Ignore"/>
    <issue id="LocalSuppress" severity="Ignore"/>
+   <issue id="LocaleFolder" severity="Ignore"/>
    <issue id="MangledCRLF" severity="Ignore"/>
    <issue id="ManifestOrder" severity="Ignore"/>
    <issue id="ManifestTypo" severity="Ignore"/>
    <issue id="MenuTitle" severity="Ignore"/>
    <issue id="MergeRootFrame" severity="Ignore"/>
+   <issue id="MisplacedStatement" severity="Ignore"/>
    <issue id="MissingApplicationIcon" severity="Ignore"/>
    <issue id="MissingId" severity="Ignore"/>
    <issue id="MissingPrefix" severity="Ignore"/>
@@ -76,11 +101,14 @@
    <issue id="MissingSuperCall" severity="Ignore"/>
    <issue id="MissingTranslation" severity="Ignore"/>
    <issue id="MissingVersion" severity="Ignore"/>
+   <issue id="MockLocation" severity="Ignore"/>
    <issue id="MultipleUsesSdk" severity="Ignore"/>
    <issue id="NamespaceTypo" severity="Ignore"/>
    <issue id="NestedScrolling" severity="Ignore"/>
    <issue id="NestedWeights" severity="Ignore"/>
    <issue id="NewApi" severity="Ignore"/>
+   <issue id="NewerVersionAvailable" severity="Ignore"/>
+   <issue id="NfcTechWhitespace" severity="Ignore"/>
    <issue id="NotSibling" severity="Ignore"/>
    <issue id="ObsoleteLayoutParam" severity="Ignore"/>
    <issue id="OldTargetApi" severity="Ignore"/>
@@ -93,16 +121,21 @@
    <issue id="PrivateResource" severity="Ignore"/>
    <issue id="Proguard" severity="Ignore"/>
    <issue id="ProguardSplit" severity="Ignore"/>
+   <issue id="PropertyEscape" severity="Ignore"/>
    <issue id="ProtectedPermissions" severity="Ignore"/>
    <issue id="PxUsage" severity="Ignore"/>
    <issue id="Recycle" severity="Ignore"/>
+   <issue id="ReferenceType" severity="Ignore"/>
    <issue id="Registered" severity="Ignore"/>
    <issue id="RequiredSize" severity="Ignore"/>
    <issue id="ResAuto" severity="Ignore"/>
    <issue id="ResourceAsColor" severity="Ignore"/>
+   <issue id="ResourceCycle" severity="Ignore"/>
+   <issue id="ResourceName" severity="Ignore"/>
    <issue id="RtlCompat" severity="Ignore"/>
    <issue id="RtlEnabled" severity="Ignore"/>
    <issue id="RtlHardcoded" severity="Ignore"/>
+   <issue id="RtlSymmetry" severity="Ignore"/>
    <issue id="ScrollViewCount" severity="Ignore"/>
    <issue id="ScrollViewSize" severity="Ignore"/>
    <issue id="SdCardPath" severity="Ignore"/>
@@ -111,6 +144,7 @@
    <issue id="ServiceCast" severity="Ignore"/>
    <issue id="SetJavaScriptEnabled" severity="Ignore"/>
    <issue id="ShowToast" severity="Ignore"/>
+   <issue id="SignatureOrSystemPermissions" severity="Ignore"/>
    <issue id="SimpleDateFormat" severity="Ignore"/>
    <issue id="SmallSp" severity="Ignore"/>
    <issue id="SpUsage" severity="Ignore"/>
@@ -119,13 +153,14 @@
    <issue id="StringFormatCount" severity="Ignore"/>
    <issue id="StringFormatInvalid" severity="Ignore"/>
    <issue id="StringFormatMatches" severity="Ignore"/>
-   <issue id="StyleCycle" severity="Ignore"/>
+   <issue id="StringShouldBeInt" severity="Ignore"/>
    <issue id="Suspicious0dp" severity="Ignore"/>
    <issue id="SuspiciousImport" severity="Ignore"/>
    <issue id="TextFields" severity="Ignore"/>
    <issue id="TextViewEdits" severity="Ignore"/>
    <issue id="TooDeepLayout" severity="Ignore"/>
    <issue id="TooManyViews" severity="Ignore"/>
+   <issue id="TrulyRandom" severity="Ignore"/>
    <issue id="TypographyDashes" severity="Ignore"/>
    <issue id="TypographyEllipsis" severity="Ignore"/>
    <issue id="TypographyFractions" severity="Ignore"/>
@@ -136,10 +171,12 @@
    <issue id="UnknownId" severity="Ignore"/>
    <issue id="UnknownIdInLayout" severity="Ignore"/>
    <issue id="UnlocalizedSms" severity="Ignore"/>
+   <issue id="UnusedAttribute" severity="Ignore"/>
    <issue id="UnusedIds" severity="Ignore"/>
    <issue id="UnusedNamespace" severity="Ignore"/>
    <issue id="UnusedQuantity" severity="Ignore"/>
    <issue id="UnusedResources" severity="Ignore"/>
+   <issue id="UseCheckPermission" severity="Ignore"/>
    <issue id="UseCompoundDrawables" severity="Ignore"/>
    <issue id="UseSparseArrays" severity="Ignore"/>
    <issue id="UseValueOf" severity="Ignore"/>
@@ -148,8 +185,10 @@
    <issue id="UsesMinSdkAttributes" severity="Ignore"/>
    <issue id="ValidFragment" severity="Ignore"/>
    <issue id="ViewConstructor" severity="Ignore"/>
+   <issue id="ViewHolder" severity="Ignore"/>
    <issue id="ViewTag" severity="Ignore"/>
    <issue id="Wakelock" severity="Ignore"/>
+   <issue id="WebViewLayout" severity="Ignore"/>
    <issue id="WorldReadableFiles" severity="Ignore"/>
    <issue id="WorldWriteableFiles" severity="Ignore"/>
    <issue id="WrongCall" severity="Ignore"/>

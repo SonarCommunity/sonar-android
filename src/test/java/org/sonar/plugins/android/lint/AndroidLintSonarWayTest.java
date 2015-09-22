@@ -51,6 +51,6 @@ public class AndroidLintSonarWayTest {
 
     RulesProfile profile = sonarWay.createProfile(ValidationMessages.create());
 
-    assertThat(profile.getActiveRules().size()).isEqualTo(147);
+    assertThat(profile.getActiveRules().size()).isEqualTo(183);
   }
 }

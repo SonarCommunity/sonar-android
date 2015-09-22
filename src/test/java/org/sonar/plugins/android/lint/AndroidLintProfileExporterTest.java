@@ -53,6 +53,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class AndroidLintProfileExporterTest {
+  private final static int RULES_COUNT = 197;
 
   @Test
   public void mime_type_is_xml() throws Exception {
@@ -68,7 +69,7 @@ public class AndroidLintProfileExporterTest {
     RulesProfile rulesProfileWithActiveRules = createRulesProfileWithActiveRules(rules);
     new AndroidLintProfileExporter().exportProfile(rulesProfileWithActiveRules, sw);
     String output = sw.toString();
-    assertThat(nbOfIssues(output)).isEqualTo(158);
+    assertThat(nbOfIssues(output)).isEqualTo(RULES_COUNT);
     assertXmlAreSimilar(output, "exporter/lint.xml");
   }
 
@@ -80,7 +81,7 @@ public class AndroidLintProfileExporterTest {
     when(ruleFinder.findAll(any(RuleQuery.class))).thenReturn(createAPIRule(rules));
     new AndroidLintProfileExporter().exportProfile(RulesProfile.create(), sw);
     String output = sw.toString();
-    assertThat(nbOfIssues(output)).isEqualTo(158);
+    assertThat(nbOfIssues(output)).isEqualTo(RULES_COUNT);
     assertXmlAreSimilar(output, "exporter/lint-ignore.xml");
   }
 

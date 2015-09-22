@@ -52,7 +52,7 @@
     <sonar.pluginClass>org.sonar.plugins.android.AndroidPlugin</sonar.pluginClass>
     <sonar.pluginName>Android</sonar.pluginName>
     <sonar.requirePlugins>java:${sonar-java.version}</sonar.requirePlugins>
-    <lint.version>22.2.0</lint.version>
+    <lint.version>23.0.0</lint.version>
     <simplexml.version>2.7.1</simplexml.version>
     <jsr305.version>3.0.0</jsr305.version>
     <slf4j.version>1.7.10</slf4j.version>

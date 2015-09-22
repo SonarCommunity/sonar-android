@@ -27,7 +27,7 @@ public class AndroidLintVersionTest {
 
   @Test
   public void testGetVersion() {
-    assertThat(AndroidLintVersion.getVersion()).isEqualTo("22.2.0");
+    assertThat(AndroidLintVersion.getVersion()).isEqualTo("23.0.0");
 
     assertThat(AndroidLintVersion.readVersion("/foo/bar")).isEqualTo("");
   }
