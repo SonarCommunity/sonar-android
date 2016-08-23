@@ -19,9 +19,14 @@
  */
 package com.sonar.it.android;
 
+import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.assertions.Fail.fail;
+import static org.junit.Assume.assumeTrue;
+
 import com.google.common.base.Charsets;
 import com.sonar.orchestrator.Orchestrator;
 import com.sonar.orchestrator.build.SonarRunner;
+
 import org.apache.commons.io.FileUtils;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -33,10 +38,6 @@ import org.sonar.wsclient.services.Resource;
 import org.sonar.wsclient.services.ResourceQuery;
 
 import java.io.File;
-
-import static org.fest.assertions.Assertions.assertThat;
-import static org.fest.assertions.Fail.fail;
-import static org.junit.Assume.assumeTrue;
 
 public class AndroidTest {
 
@@ -65,7 +66,7 @@ public class AndroidTest {
       .setProjectVersion("1.0")
       .setSourceDirs("app/src/main")
       .setProjectDir(new File("projects/SonarAndroidSample"))
-      .setProperty("sonar.android.lint.report", "lint-results.xml")
+      .setProperty("sonar.android.lint.report", "app/lint-results.xml")
       .setProperty("sonar.import_unknown_files", "true");
     orchestrator.executeBuild(analysis);
     Resource project = sonar.find(ResourceQuery.createForMetrics("SonarAndroidSample", "violations"));
@@ -90,7 +91,7 @@ public class AndroidTest {
       .setProjectDir(new File("projects/SonarAndroidSample"))
       .setProperty("skipTests", "true")
       .setProperty("sonar.global.exclusions", "**/TestViolations.java")
-      .setProperty("sonar.android.lint.report", "lint-results.xml")
+      .setProperty("sonar.android.lint.report", "app/lint-results.xml")
       .setProperty("sonar.import_unknown_files", "true");
 
     orchestrator.executeBuild(analysis);

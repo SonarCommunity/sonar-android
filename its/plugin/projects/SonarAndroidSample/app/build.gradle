@@ -21,7 +21,7 @@ android {
         checkAllWarnings true
         absolutePaths false
 		    lintConfig file("lint.xml")
-		    xmlOutput file("lint-report-build.xml")
+		    xmlOutput file("lint-results.xml")
     }
 }
 

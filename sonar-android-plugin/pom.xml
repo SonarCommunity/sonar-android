@@ -18,7 +18,7 @@
     <sonar.version>4.5.4</sonar.version>
     <!-- Configuration for sonar-packaging-maven-plugin -->
     <sonar.pluginClass>org.sonar.plugins.android.AndroidPlugin</sonar.pluginClass>
-    <sonar.pluginName>Android</sonar.pluginName>
+    <sonar.pluginName>Android Lint</sonar.pluginName>
     <sonar.requirePlugins>java:${sonar-java.version}</sonar.requirePlugins>
   </properties>
 
@@ -54,6 +54,14 @@
     <dependency>
       <groupId>com.android.tools.lint</groupId>
       <artifactId>lint</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.android.tools.lint</groupId>
+      <artifactId>lint-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.android.tools.lint</groupId>
+      <artifactId>lint-checks</artifactId>
     </dependency>
     <dependency>
       <groupId>org.projectlombok</groupId>

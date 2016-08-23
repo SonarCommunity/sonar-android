@@ -42,8 +42,12 @@ public class AndroidLintRulesDefinition implements RulesDefinition {
 
   @Override
   public void define(Context context) {
+    define(context, RULES_XML_PATH);
+  }
+
+  void define(Context context, String rulesXmlPaths) {
     NewRepository repository = context.createRepository(REPOSITORY_KEY, "java").setName(REPOSITORY_NAME);
-    InputStream inputStream = getClass().getResourceAsStream(RULES_XML_PATH);
+    InputStream inputStream = getClass().getResourceAsStream(rulesXmlPaths);
     InputStreamReader reader = new InputStreamReader(inputStream, Charsets.UTF_8);
     try {
       xmlLoader.load(repository, reader);

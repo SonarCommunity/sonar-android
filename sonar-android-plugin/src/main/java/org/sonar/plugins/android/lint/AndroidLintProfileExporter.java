@@ -23,6 +23,7 @@ import com.android.tools.lint.detector.api.Severity;
 import com.google.common.base.Charsets;
 import com.google.common.collect.Lists;
 import com.google.common.net.MediaType;
+
 import org.apache.commons.lang.StringUtils;
 import org.codehaus.staxmate.SMInputFactory;
 import org.codehaus.staxmate.in.SMHierarchicCursor;
@@ -39,10 +40,6 @@ import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.rules.ActiveRule;
 import org.sonar.api.rules.RulePriority;
 
-import javax.annotation.Nullable;
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamException;
-
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Writer;
@@ -53,9 +50,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Nullable;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamException;
+
 public class AndroidLintProfileExporter extends ProfileExporter {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(AndroidLintProfileExporter.class);
+  private final String rulesXmlPath;
 
   private Collection<String> ruleKeys;
 
@@ -64,7 +66,15 @@ public class AndroidLintProfileExporter extends ProfileExporter {
    * be injected RuleFinder.
    */
   public AndroidLintProfileExporter() {
+    this(AndroidLintRulesDefinition.RULES_XML_PATH);
+  }
+
+  /**
+   * Used for testing.
+   */
+  AndroidLintProfileExporter(String rulesXmlPath) {
     super(AndroidLintRulesDefinition.REPOSITORY_KEY, AndroidLintRulesDefinition.REPOSITORY_NAME);
+    this.rulesXmlPath = rulesXmlPath;
     ruleKeys = Lists.newArrayList();
     loadRuleKeys();
     setSupportedLanguages("java", "xml");
@@ -79,7 +89,7 @@ public class AndroidLintProfileExporter extends ProfileExporter {
     xmlFactory.setProperty(XMLInputFactory.SUPPORT_DTD, Boolean.FALSE);
     xmlFactory.setProperty(XMLInputFactory.IS_VALIDATING, Boolean.FALSE);
     SMInputFactory inputFactory = new SMInputFactory(xmlFactory);
-    InputStream inputStream = getClass().getResourceAsStream(AndroidLintRulesDefinition.RULES_XML_PATH);
+    InputStream inputStream = getClass().getResourceAsStream(rulesXmlPath);
     InputStreamReader reader = new InputStreamReader(inputStream, Charsets.UTF_8);
     try {
       SMHierarchicCursor rootC = inputFactory.rootElementCursor(reader);

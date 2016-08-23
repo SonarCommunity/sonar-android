@@ -37,8 +37,8 @@ public class DtoRule {
   private String description;
   @Element
   private String severity;
-  @ElementList(name="tag", inline = true)
-  private List<String> tags = new ArrayList<String>();
+  @ElementList(entry="tag", inline = true)
+  private List<String> tags = new ArrayList<>();
 
   public String getKey() {
     return key;

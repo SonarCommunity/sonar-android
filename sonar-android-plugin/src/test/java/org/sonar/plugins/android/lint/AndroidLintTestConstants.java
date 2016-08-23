@@ -19,16 +19,12 @@
  */
 package org.sonar.plugins.android.lint;
 
-import static org.fest.assertions.Assertions.assertThat;
+/**
+ * Constants for testing
+ */
+public class AndroidLintTestConstants {
+  public static final String TEST_RULES_XML = "/test-rules.xml";
 
-import org.junit.Test;
-
-public class AndroidLintVersionTest {
-
-  @Test
-  public void testGetVersion() {
-    assertThat(AndroidLintVersion.getVersion()).isEqualTo("25.1.2");
-
-    assertThat(AndroidLintVersion.readVersion("/foo/bar")).isEqualTo("");
-  }
+  // Not instantiable
+  private AndroidLintTestConstants() {}
 }
